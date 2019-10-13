@@ -1,6 +1,6 @@
-type sexType = 'male' | 'female';
+export type sexType = 'Male' | 'Female';
 
-export default interface Patient {
+export default interface PatientInterface {
     Id: number;
     Name: string
     Sex?: sexType;
