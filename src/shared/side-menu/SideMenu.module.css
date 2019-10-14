@@ -1,0 +1,25 @@
+/*bg*/
+/*components*/
+.SideMenu {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 220px;
+  padding-top: calc(20px + 60px);
+  background: #1b4782;
+  color: #fbffff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-right: 1px solid #b7d6ee;
+}
+.SideMenu:after {
+  position: absolute;
+  top: 0;
+  right: 1px;
+  content: "";
+  width: 1px;
+  height: 100%;
+  background: #fbffff;
+}
+
+/*# sourceMappingURL=SideMenu.module.css.map */

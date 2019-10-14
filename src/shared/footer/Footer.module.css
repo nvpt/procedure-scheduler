@@ -1,0 +1,16 @@
+/*bg*/
+/*components*/
+.Footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  background: #1b4782;
+  color: #fbffff;
+  box-shadow: 0 -3px 9px -1px gray;
+  border-top: 1px solid #b7d6ee;
+}
+
+/*# sourceMappingURL=Footer.module.css.map */

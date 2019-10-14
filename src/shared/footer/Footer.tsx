@@ -5,6 +5,6 @@ export default class Footer extends React.Component {
     state = {}
 
     render() {
-        return <div>Footer</div>
+        return <div className={cn.Footer}>Footer</div>
     }
 }

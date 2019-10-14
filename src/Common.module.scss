@@ -13,16 +13,11 @@
     display: flex;
     flex: 1;
     flex-direction: column;
+    justify-content: space-between;
     height: 100%;
     overflow: hidden;
 }
 
 .Container {
     display: flex;
-    flex: 1;
-}
-
-.Content {
-    display: block;
-    padding: 14px;
 }

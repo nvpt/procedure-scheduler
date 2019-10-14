@@ -5,6 +5,6 @@ export default class Header extends React.Component {
     state = {}
 
     render() {
-        return <div>Header</div>
+        return <div className={cn.Header}>Header</div>
     }
 }

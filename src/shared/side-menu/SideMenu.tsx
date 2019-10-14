@@ -5,6 +5,6 @@ export default class SideMenu extends React.Component{
   state = {};
 
   render() {
-    return <div>Side Menu</div>;
+    return <div className={cn.SideMenu}>Side Menu</div>;
   }
 }

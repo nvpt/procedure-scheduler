@@ -8,10 +8,16 @@ import SideMenu from './shared/side-menu/SideMenu'
 const App: React.FC = () => {
     return (
         <div className={cn.App}>
-            <Header />
             <SideMenu />
-            <div className={cn.Content}>Here will be inserted content</div>
-            <Footer />
+            <div className={cn.Wrapper}>
+                <Header />
+                <div className={cn.Container}>
+                    <div className={cn.Content}>
+                        Here will be inserted content
+                    </div>
+                </div>
+                <Footer />
+            </div>
         </div>
     )
 }

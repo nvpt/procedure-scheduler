@@ -1,0 +1,14 @@
+@import '../../Variables.scss';
+
+.Footer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: $header-height;
+    background: $components-bg-color;
+    color: $content-light-color;
+    box-shadow: 0 -3px 9px -1px gray;
+    border-top: 1px solid $action-bg-color;
+}
