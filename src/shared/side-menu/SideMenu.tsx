@@ -1,10 +1,10 @@
 import React from "react";
 import cn from "./SideMenu.module.css";
 
-export default class SideMenu {
+export default class SideMenu extends React.Component{
   state = {};
 
   render() {
-    return <div></div>;
+    return <div>Side Menu</div>;
   }
 }

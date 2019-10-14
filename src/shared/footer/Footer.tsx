@@ -1,10 +1,10 @@
-import React from "react";
-import cn from "./Footer.module.css";
+import React from 'react'
+import cn from './Footer.module.css'
 
-export default class Footer {
-  state = {};
+export default class Footer extends React.Component {
+    state = {}
 
-  render() {
-    return <div></div>;
-  }
+    render() {
+        return <div>Footer</div>
+    }
 }

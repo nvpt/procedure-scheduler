@@ -1,10 +1,10 @@
-import React from "react";
-import cn from "./Header.module.css";
+import React from 'react'
+import cn from './Header.module.css'
 
-export default class Header {
-  state = {};
+export default class Header extends React.Component {
+    state = {}
 
-  render() {
-    return <div></div>;
-  }
+    render() {
+        return <div>Header</div>
+    }
 }
