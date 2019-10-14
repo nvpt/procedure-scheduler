@@ -4,11 +4,13 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 100%;
     height: $header-height;
+    padding-right: 24px;
     background: $components-bg-color;
     color: $content-light-color;
+    font-weight: 500;
     box-shadow: 0 3px 9px -1px gray;
     border-bottom: 1px solid $action-bg-color;
 }
