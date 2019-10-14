@@ -6,6 +6,7 @@
   align-items: flex-start;
   justify-content: center;
   width: 220px;
+  min-width: 220px;
   padding-top: calc(20px + 60px);
   background: #1b4782;
   color: #fbffff;

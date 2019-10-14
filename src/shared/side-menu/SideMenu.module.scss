@@ -6,11 +6,13 @@
     align-items: flex-start;
     justify-content: center;
     width: $side-menu-width;
+    min-width: $side-menu-width;
     padding-top: calc(20px + #{$header-height});
     background: $components-bg-color;
     color: $content-light-color;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     border-right: 1px solid $action-bg-color;
+
     &:after {
         position: absolute;
         top: 0;
