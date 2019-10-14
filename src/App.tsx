@@ -10,7 +10,7 @@ const App: React.FC = () => {
         <div className={cn.App}>
             <Header />
             <SideMenu />
-            <div>here will be content</div>
+            <div className={cn.Content}>Here will be inserted content</div>
             <Footer />
         </div>
     )

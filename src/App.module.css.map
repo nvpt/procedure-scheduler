@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["App.module.scss","Variables.scss"],"names":[],"mappings":"AAEA;EACI;EACA;EACA;EACA;EACA,OCPS;EDQT","file":"App.module.css"}
+{"version":3,"sourceRoot":"","sources":["Variables.scss","App.module.scss"],"names":[],"mappings":"AAIA;ACFA;EACI;EACA;EACA;EACA,YDLkB;ECMlB,ODPY","file":"App.module.css"}
