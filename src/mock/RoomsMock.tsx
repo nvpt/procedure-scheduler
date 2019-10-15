@@ -1,6 +1,6 @@
 import RoomInterface from "../interfaces/RoomInterface";
 
-export const Rooms:RoomInterface[] = [
+export const RoomsList:RoomInterface[] = [
     {
         Id: 1,
         Name: 'Procedural',
