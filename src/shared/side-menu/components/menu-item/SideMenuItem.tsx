@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import cn from './SideMenuItem.module.css'
 import MenuItemInterface from '../../../../interfaces/MenuItemInterface'
 
@@ -8,5 +9,9 @@ interface Props {
 }
 
 export const SideMenuItem: React.FC<Props> = ({ item, className }) => {
-    return <li className={[cn.SideMenuItem, className].join(' ')}>{item.LABEL}</li>
+    return (
+        <li className={[cn.SideMenuItem, className].join(' ')}>
+            <Link to={item.LINK}>{item.LABEL}</Link>
+        </li>
+    )
 }
