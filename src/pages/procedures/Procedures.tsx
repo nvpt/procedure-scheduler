@@ -3,9 +3,15 @@ import cn from './procedures.module.css'
 import { Table } from 'react-bootstrap'
 import { ProceduresList } from '../../mock/ProceduresMock'
 import TopPanel from '../../shared/top-panel/TopPanel'
+import ProcedureInterface from '../../interfaces/ProcedureInterface'
+import AddProcedureModal from './coponents/add-procedure-modal/AddProcedureModal'
 
 interface ProceduresProps {}
-interface ProceduresState {}
+interface ProceduresState {
+    procedures: ProcedureInterface[]
+    emptyPlaceholder: string
+    showAdding: boolean
+}
 export default class Procedures extends React.Component<
     ProceduresProps,
     ProceduresState
@@ -13,24 +19,28 @@ export default class Procedures extends React.Component<
     state = {
         procedures: ProceduresList,
         emptyPlaceholder: 'No procedures.',
+        showAdding: false,
     }
 
-    addProcedure(){
-        console.log('add procedure');
+    handleShowHideModal(status: boolean = false) {
+        this.setState({
+            showAdding: status,
+        })
     }
-    
+
     render() {
-        const { procedures, emptyPlaceholder } = this.state
+        const { procedures, emptyPlaceholder, showAdding } = this.state
 
         if (procedures && procedures.length) {
             return (
                 <div className={cn.procedures}>
-                    <TopPanel 
+                    <TopPanel
                         title={'Procedures'}
                         buttonLabel={'Procedure'}
                         addAction={() => {
-                            this.addProcedure()
-                        }}/>
+                            this.handleShowHideModal(true)
+                        }}
+                    />
                     <Table striped bordered hover>
                         <thead>
                             <tr>
@@ -57,6 +67,10 @@ export default class Procedures extends React.Component<
                             })}
                         </tbody>
                     </Table>
+                    <AddProcedureModal
+                        show={showAdding}
+                        setOnHideShow={()=>{this.handleShowHideModal()}}
+                    />
                 </div>
             )
         } else {
