@@ -28,7 +28,7 @@ export default class Patients extends React.Component<
         })
     }
 
-    hahdleShowHideModal(status: boolean) {
+    handleShowHideModal(status: boolean) {
         this.setState({
             show: status,
         })
@@ -73,7 +73,7 @@ export default class Patients extends React.Component<
                     <AddPatientModal
                         show={show}
                         setOnHideShow={() => {
-                            this.hahdleShowHideModal(false)
+                            this.handleShowHideModal(false)
                         }}
                     />
                 </div>
