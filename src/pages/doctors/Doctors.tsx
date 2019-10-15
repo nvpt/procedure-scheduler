@@ -1,12 +1,17 @@
 import React from 'react'
 
-import cn from './Doctors.module.css'
+import cn from './doctors.module.css'
+interface DoctorsProps {}
+interface DoctorsState {}
 
-export default class Doctors extends React.Component {
-
-    render(): React.ReactElement<any> | null | undefined {
-        return (
-            <div>Here will be doctors table</div>
-        )
+export default class Doctors extends React.Component<
+    DoctorsProps,
+    DoctorsState
+> {
+    constructor(props: DoctorsProps) {
+        super(props)
+    }
+    render() {
+        return <div>Here will be doctors table</div>
     }
 }

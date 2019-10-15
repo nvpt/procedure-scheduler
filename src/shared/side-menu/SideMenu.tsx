@@ -1,15 +1,13 @@
 import React from 'react'
-import cn from './SideMenu.module.css'
-import SideMenuList from './components/menu-list/SideMenuList'
+import cn from './sideMenu.module.css'
+import { SideMenuList } from './components/menu-list/SideMenuList'
 
-export default class SideMenu extends React.Component {
-    state = {}
+interface Props {}
 
-    render() {
-        return (
-            <div className={cn.SideMenu}>
-                <SideMenuList />
-            </div>
-        )
-    }
+export const SideMenu: React.FC<Props> = () => {
+    return (
+        <div className={cn.sideMenu}>
+            <SideMenuList />
+        </div>
+    )
 }
