@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from './Breadcrumbs.module.css';
-import { Link } from 'react-router-dom';
-import { PATH } from '../../Constants';
+// import { Link } from 'react-router-dom';
+import { MENU } from '../../Constants';
 
 export default class Breadcrumbs extends React.Component {
 
@@ -10,7 +10,7 @@ export default class Breadcrumbs extends React.Component {
             <div>
                 <ul className={cn.breadcrumbs}>
                     <li className={cn.item}>
-                        <Link to={PATH.HOME.LINK}>{PATH.HOME.LABEL}</Link>
+                        {/*<Link to={MENU.HOME.LINK}>{MENU.HOME.LABEL}</Link>*/}
                     </li>
                 </ul>
             </div>
