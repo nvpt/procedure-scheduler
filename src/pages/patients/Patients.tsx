@@ -3,9 +3,15 @@ import cn from './patients.module.css'
 import { Table } from 'react-bootstrap'
 import { PatientsList } from '../../mock/PatientsMock'
 import TopPanel from '../../shared/top-panel/TopPanel'
+import AddPatientModal from './coponents/add-patient-modal/AddPatientModal'
+import PatientInterface from '../../interfaces/PatientInterface'
 
 interface PatientsProps {}
-interface PatientsState {}
+interface PatientsState {
+    patients: PatientInterface[]
+    emptyPlaceholder: string
+    show: boolean
+}
 export default class Patients extends React.Component<
     PatientsProps,
     PatientsState
@@ -13,14 +19,23 @@ export default class Patients extends React.Component<
     state = {
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
+        show: false,
     }
 
     addPatient() {
-        console.log('add Patient')
+        this.setState({
+            show: true,
+        })
+    }
+
+    hahdleShowHideModal(status: boolean) {
+        this.setState({
+            show: status,
+        })
     }
 
     render() {
-        const { patients, emptyPlaceholder } = this.state
+        const { patients, emptyPlaceholder, show } = this.state
 
         if (patients && patients.length) {
             return (
@@ -54,6 +69,13 @@ export default class Patients extends React.Component<
                             })}
                         </tbody>
                     </Table>
+
+                    <AddPatientModal
+                        show={show}
+                        setOnHideShow={() => {
+                            this.hahdleShowHideModal(false)
+                        }}
+                    />
                 </div>
             )
         } else {
