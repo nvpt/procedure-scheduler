@@ -6,7 +6,7 @@ export const MENU: { [key: string]: MenuItemInterface } = {
     //     LABEL: 'Home',
     // },
     DOCTORS: {
-        LINK: '/',
+        LINK: '/doctors',
         LABEL: 'Doctors',
     },
     PATIENTS: {

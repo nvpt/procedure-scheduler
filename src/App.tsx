@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import cn from './app.module.css'
 
 import { MENU } from './Constants'
@@ -18,6 +18,7 @@ const App: React.FC = () => {
                     <Header />
                     <div className={cn.container}>
                         <div className={cn.content}>
+                            <Redirect from='/' to={MENU.DOCTORS.LINK}/>
                             <Route
                                 exact
                                 path={MENU.DOCTORS.LINK}
