@@ -1,8 +1,8 @@
-export type sexType = 'Male' | 'Female';
+export type sexType = 'Male' | 'Female'
 
 export default interface PatientInterface {
-    Id: number;
+    Id: number
     Name: string
-    Sex?: sexType;
-    DayOfBirth?: string //todo ***
+    Sex?: sexType
+    DayOfBirth?: string
 }

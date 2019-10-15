@@ -9,6 +9,7 @@ import { SideMenu } from './shared/side-menu/SideMenu'
 import Doctors from './pages/doctors/Doctors'
 import Patients from './pages/patients/Patients'
 import Procedures from './pages/procedures/Procedures'
+import Rooms from './pages/rooms/Rooms'
 
 const App: React.FC = () => {
     return (
@@ -34,6 +35,11 @@ const App: React.FC = () => {
                                 exact
                                 path={MENU.PROCEDURES.LINK}
                                 component={Procedures}
+                            />
+                            <Route
+                                exact
+                                path={MENU.ROOMS.LINK}
+                                component={Rooms}
                             />
                         </div>
                     </div>
