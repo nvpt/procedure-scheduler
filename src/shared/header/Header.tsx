@@ -1,10 +1,10 @@
 import React from 'react'
-import cn from './Header.module.css'
+import cn from './header.module.css'
 
 export default class Header extends React.Component {
     state = {}
 
     render() {
-        return <div className={cn.Header}>Procedure Scheduler</div>
+        return <div className={cn.header}>Procedure Scheduler</div>
     }
 }

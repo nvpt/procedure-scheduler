@@ -1,6 +1,6 @@
 /*bg*/
 /*components*/
-.Header {
+.header {
   position: relative;
   display: flex;
   align-items: center;
@@ -15,4 +15,4 @@
   border-bottom: 1px solid #b7d6ee;
 }
 
-/*# sourceMappingURL=Header.module.css.map */
+/*# sourceMappingURL=header.module.css.map */

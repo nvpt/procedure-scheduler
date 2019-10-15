@@ -1,0 +1,23 @@
+@import "../../variables";
+@import "../../common";
+
+.topPanel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: $top-panel-height;
+    padding-bottom: 26px;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 0;
+}
+
+.panelContentWrap {
+    display: flex;
+    align-items: center;
+}
+.buttonWrap {
+    min-width: 80px;
+}

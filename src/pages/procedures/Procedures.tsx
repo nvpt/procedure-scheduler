@@ -2,6 +2,7 @@ import React from 'react'
 import cn from './procedures.module.css'
 import { Table } from 'react-bootstrap'
 import { ProceduresList } from '../../mock/ProceduresMock'
+import TopPanel from '../../shared/top-panel/TopPanel'
 
 interface ProceduresProps {}
 interface ProceduresState {}
@@ -13,12 +14,23 @@ export default class Procedures extends React.Component<
         procedures: ProceduresList,
         emptyPlaceholder: 'No procedures.',
     }
+
+    addProcedure(){
+        console.log('add procedure');
+    }
+    
     render() {
         const { procedures, emptyPlaceholder } = this.state
 
         if (procedures && procedures.length) {
             return (
                 <div className={cn.procedures}>
+                    <TopPanel 
+                        title={'Procedures'}
+                        buttonLabel={'Procedure'}
+                        addAction={() => {
+                            this.addProcedure()
+                        }}/>
                     <Table striped bordered hover>
                         <thead>
                             <tr>

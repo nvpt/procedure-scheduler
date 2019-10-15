@@ -1,5 +1,12 @@
 @import 'variables';
 
+/*global styles*/
 .table-padding {
-    padding-top: 50px;
+    padding-top: 30px;
+}
+
+
+/*bootstrap overriding*/
+th {
+    vertical-align: top !important;
 }

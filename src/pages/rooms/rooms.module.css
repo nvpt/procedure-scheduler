@@ -1,7 +1,13 @@
 /*bg*/
 /*components*/
+/*global styles*/
 .table-padding, .rooms {
-  padding-top: 50px;
+  padding-top: 30px;
+}
+
+/*bootstrap overriding*/
+th {
+  vertical-align: top !important;
 }
 
 /*# sourceMappingURL=rooms.module.css.map */

@@ -1,7 +1,13 @@
 /*bg*/
 /*components*/
+/*global styles*/
 .table-padding, .doctors {
-  padding-top: 50px;
+  padding-top: 30px;
+}
+
+/*bootstrap overriding*/
+th {
+  vertical-align: top !important;
 }
 
 /*# sourceMappingURL=doctors.module.css.map */

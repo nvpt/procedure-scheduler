@@ -4,6 +4,7 @@ import cn from './doctors.module.css'
 import { DoctorsList } from '../../mock/DoctorsMock'
 import DoctorInterface from '../../interfaces/DoctorInterface'
 import { Table } from 'react-bootstrap'
+import TopPanel from '../../shared/top-panel/TopPanel'
 
 interface DoctorsProps {}
 interface DoctorsState {
@@ -25,6 +26,7 @@ export default class Doctors extends React.Component<
         if (doctors && doctors.length) {
             return (
                 <div className={cn.doctors}>
+                    <TopPanel title={'Doctors'}/>
                     <Table striped bordered hover>
                         <thead>
                             <tr>

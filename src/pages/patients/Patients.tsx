@@ -2,25 +2,36 @@ import React from 'react'
 import cn from './patients.module.css'
 import { Table } from 'react-bootstrap'
 import { PatientsList } from '../../mock/PatientsMock'
+import TopPanel from '../../shared/top-panel/TopPanel'
 
 interface PatientsProps {}
 interface PatientsState {}
 export default class Patients extends React.Component<
     PatientsProps,
     PatientsState
-
-
 > {
     state = {
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
     }
-    render(): React.ReactElement<any> | null | undefined {
+
+    addPatient() {
+        console.log('add Patient')
+    }
+
+    render() {
         const { patients, emptyPlaceholder } = this.state
 
         if (patients && patients.length) {
             return (
                 <div className={cn.patients}>
+                    <TopPanel
+                        title={'Patients'}
+                        buttonLabel={'Patient'}
+                        addAction={() => {
+                            this.addPatient()
+                        }}
+                    />
                     <Table striped bordered hover>
                         <thead>
                             <tr>

@@ -4,6 +4,7 @@ import cn from './rooms.module.css'
 import { RoomsList } from '../../mock/RoomsMock'
 import RoomInterface from '../../interfaces/RoomInterface'
 import { Table } from 'react-bootstrap'
+import TopPanel from '../../shared/top-panel/TopPanel'
 
 interface RoomsProps {}
 interface RoomsState {
@@ -25,6 +26,7 @@ export default class Rooms extends React.Component<
         if (rooms && rooms.length) {
             return (
                 <div className={cn.rooms}>
+                    <TopPanel title={'Rooms'}/>
                     <Table striped bordered hover>
                         <thead>
                             <tr>
