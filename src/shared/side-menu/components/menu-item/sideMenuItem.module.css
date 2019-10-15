@@ -1,0 +1,30 @@
+/*bg*/
+/*components*/
+.sideMenuItem {
+  list-style: none;
+}
+
+.link {
+  border: 1px solid transparent;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  padding: 8px 14px;
+  text-decoration: none;
+  color: unset;
+}
+.link:hover {
+  cursor: pointer;
+  color: #b7d6ee;
+  border: 1px solid #b7d6ee;
+  border-radius: 4px;
+}
+
+.linkActive {
+  cursor: pointer;
+  color: #b7d6ee;
+  border: 1px solid #b7d6ee;
+  border-radius: 4px;
+}
+
+/*# sourceMappingURL=sideMenuItem.module.css.map */
