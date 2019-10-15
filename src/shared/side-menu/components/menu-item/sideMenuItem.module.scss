@@ -16,8 +16,8 @@
 
     &:hover {
         cursor: pointer;
-        color: $action-bg-color;
-        border: 1px solid $action-bg-color;
+        color: $content-light-color;
+        border: 1px solid $content-light-color;
         border-radius: 4px;
     }
 }
@@ -26,7 +26,8 @@
 
 .linkActive {
     cursor: pointer;
-    color: $action-bg-color;
-    border: 1px solid $action-bg-color;
+    color: $content-light-color;
+    background: $action-bg-color;
+    border: 1px solid $content-light-color;
     border-radius: 4px;
 }

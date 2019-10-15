@@ -15,15 +15,16 @@
 }
 .link:hover {
   cursor: pointer;
-  color: #b7d6ee;
-  border: 1px solid #b7d6ee;
+  color: #fbffff;
+  border: 1px solid #fbffff;
   border-radius: 4px;
 }
 
 .linkActive {
   cursor: pointer;
-  color: #b7d6ee;
-  border: 1px solid #b7d6ee;
+  color: #fbffff;
+  background: #b7d6ee;
+  border: 1px solid #fbffff;
   border-radius: 4px;
 }
 
