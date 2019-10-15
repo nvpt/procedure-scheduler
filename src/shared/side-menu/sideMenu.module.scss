@@ -1,13 +1,14 @@
 @import '../../variables';
 
 .sideMenu {
-    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
+    position: relative;
     width: $side-menu-width;
     min-width: $side-menu-width;
-    padding-top: calc(20px + #{$header-height});
+    padding-top: 16px;
     padding-left: 20px;
     padding-right: 20px;
     background: $components-bg-color;
@@ -23,6 +24,10 @@
         height: 100%;
         background: $content-light-color;
     }
+}
+
+.logoWrap {
+    padding-bottom: 30px;
 }
 
 a {
