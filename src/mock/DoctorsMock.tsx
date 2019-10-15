@@ -1,6 +1,6 @@
 import DoctorInterface from "../interfaces/DoctorInterface";
 
-export const Doctors: DoctorInterface[] = [
+export const DoctorsList: DoctorInterface[] = [
     {
         Id: 1,
         Name: 'Gregory House'
