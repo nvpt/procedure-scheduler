@@ -1,6 +1,6 @@
 import PatientInterface from "../interfaces/PatientInterface";
 
-export const PatientsMock: PatientInterface[] = [
+export const PatientsList: PatientInterface[] = [
     {
         Id: 1,
         Name: "John Doe",

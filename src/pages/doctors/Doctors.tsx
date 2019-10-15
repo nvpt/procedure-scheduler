@@ -20,7 +20,6 @@ export default class Doctors extends React.Component<
         emptyPlaceholder: 'No Doctors.',
     }
     render() {
-        console.log('Doctors.tsx__render >>> DoctorsList: ', DoctorsList)
         const { doctors, emptyPlaceholder } = this.state
 
         if (doctors && doctors.length) {
