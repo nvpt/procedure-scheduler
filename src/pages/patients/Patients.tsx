@@ -11,6 +11,7 @@ interface PatientsState {
     patients: PatientInterface[]
     emptyPlaceholder: string
     showAdding: boolean
+    formData: any
 }
 export default class Patients extends React.Component<
     PatientsProps,
@@ -20,16 +21,19 @@ export default class Patients extends React.Component<
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
         showAdding: false,
+        formData: {}
     }
 
-    handleShowHideModal(status: boolean = false) {
+    handleShowHideModal(status: boolean = false, formData: any = null) {
         this.setState({
             showAdding: status,
+            // formData
         })
+        // console.log('this.state.formData: ', this.state.formData)
     }
 
     render() {
-        const { patients, emptyPlaceholder, showAdding } = this.state
+        const { patients, emptyPlaceholder, showAdding, formData } = this.state
 
         if (patients && patients.length) {
             return (
@@ -68,8 +72,21 @@ export default class Patients extends React.Component<
 
                     <AddPatientModal
                         show={showAdding}
-                        setOnHideShow={() => {
-                            this.handleShowHideModal()
+                        writeFormData={(data: any)=>{
+                            console.log('Patients.tsx__76 >>> data: ', data);
+                            
+                            this.setState({
+                                formData: data
+                            })
+                            console.log('Patients.tsx__83 >>> data: ', data);
+                            if(this.state.formData){
+                                // @ts-ignore
+                                console.log('Patients.tsx__86 >>> this.state: ', this.state.formData.current);
+                            }
+                            
+                        }}
+                        setOnHideShow={(showModal, formData) => {
+                            this.handleShowHideModal(showModal, formData)
                         }}
                     />
                 </div>
