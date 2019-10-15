@@ -27,7 +27,7 @@ export default class Doctors extends React.Component<
             return (
                 <div className={cn.doctors}>
                     <TopPanel title={'Doctors'}/>
-                    <Table striped bordered hover>
+                    <Table striped bordered>
                         <thead>
                             <tr>
                                 <th>Id</th>

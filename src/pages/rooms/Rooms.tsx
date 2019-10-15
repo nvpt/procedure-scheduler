@@ -27,7 +27,7 @@ export default class Rooms extends React.Component<
             return (
                 <div className={cn.rooms}>
                     <TopPanel title={'Rooms'}/>
-                    <Table striped bordered hover>
+                    <Table striped bordered>
                         <thead>
                             <tr>
                                 <th>Id</th>

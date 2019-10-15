@@ -53,7 +53,9 @@ export default class Patients extends React.Component<
                         <tbody>
                             {patients.map((patient) => {
                                 return (
-                                    <tr key={patient.Id}>
+                                    <tr
+                                        key={patient.Id}
+                                        style={{ cursor: 'pointer' }}>
                                         <td>{patient.Id}</td>
                                         <td>{patient.Name}</td>
                                         <td>{patient.Sex}</td>
@@ -66,7 +68,9 @@ export default class Patients extends React.Component<
 
                     <AddPatientModal
                         show={showAdding}
-                        setOnHideShow={()=>{this.handleShowHideModal()}}
+                        setOnHideShow={() => {
+                            this.handleShowHideModal()
+                        }}
                     />
                 </div>
             )
