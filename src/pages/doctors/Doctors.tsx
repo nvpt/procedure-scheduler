@@ -17,7 +17,7 @@ export default class Doctors extends React.Component<
 > {
     state: DoctorsState = {
         doctors: DoctorsList,
-        emptyPlaceholder: 'List Is Empty',
+        emptyPlaceholder: 'No Doctors.',
     }
     render() {
         console.log('Doctors.tsx__render >>> DoctorsList: ', DoctorsList)

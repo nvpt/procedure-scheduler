@@ -24,4 +24,8 @@
   background: #fbffff;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 /*# sourceMappingURL=sideMenu.module.css.map */

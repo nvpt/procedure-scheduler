@@ -24,3 +24,9 @@
         background: $content-light-color;
     }
 }
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
