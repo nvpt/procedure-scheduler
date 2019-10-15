@@ -1,5 +1,5 @@
 import React from 'react'
-import cn from './add-procedure-modal.module.css'
+import cn from './procedure-modal.module.css'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
@@ -8,7 +8,7 @@ interface AddPatientsProps {
     setOnHideShow: (status: boolean) => void
 }
 interface AddPatientsState {}
-export default class AddProcedureModal extends React.Component<
+export default class ProcedureModal extends React.Component<
     AddPatientsProps,
     AddPatientsState
 > {

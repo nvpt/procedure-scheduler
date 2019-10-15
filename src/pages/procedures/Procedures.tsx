@@ -4,13 +4,13 @@ import { Table } from 'react-bootstrap'
 import { ProceduresList } from '../../mock/ProceduresMock'
 import TopPanel from '../../shared/top-panel/TopPanel'
 import ProcedureInterface from '../../interfaces/ProcedureInterface'
-import AddProcedureModal from './coponents/add-procedure-modal/AddProcedureModal'
+import ProcedureModal from './coponents/procedure-modal/ProcedureModal'
 
 interface ProceduresProps {}
 interface ProceduresState {
     procedures: ProcedureInterface[]
     emptyPlaceholder: string
-    showAdding: boolean
+    showModal: boolean
 }
 export default class Procedures extends React.Component<
     ProceduresProps,
@@ -19,17 +19,17 @@ export default class Procedures extends React.Component<
     state = {
         procedures: ProceduresList,
         emptyPlaceholder: 'No procedures.',
-        showAdding: false,
+        showModal: false,
     }
 
     handleShowHideModal(status: boolean = false) {
         this.setState({
-            showAdding: status,
+            showModal: status,
         })
     }
 
     render() {
-        const { procedures, emptyPlaceholder, showAdding } = this.state
+        const { procedures, emptyPlaceholder, showModal } = this.state
 
         if (procedures && procedures.length) {
             return (
@@ -55,7 +55,12 @@ export default class Procedures extends React.Component<
                         <tbody>
                             {procedures.map((procedure) => {
                                 return (
-                                    <tr key={procedure.Id}>
+                                    <tr
+                                        key={procedure.Id}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => {
+                                            this.handleShowHideModal(true)
+                                        }}>
                                         <td>{procedure.Id}</td>
                                         <td>{procedure.Patient}</td>
                                         <td>{procedure.Description}</td>
@@ -67,9 +72,11 @@ export default class Procedures extends React.Component<
                             })}
                         </tbody>
                     </Table>
-                    <AddProcedureModal
-                        show={showAdding}
-                        setOnHideShow={()=>{this.handleShowHideModal()}}
+                    <ProcedureModal
+                        show={showModal}
+                        setOnHideShow={() => {
+                            this.handleShowHideModal()
+                        }}
                     />
                 </div>
             )

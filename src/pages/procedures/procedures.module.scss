@@ -1,5 +1,9 @@
-@import "../../common";
+@import "../../styles/common";
 
 .procedures {
 @extend .table-padding;
+}
+
+.tr {
+    cursor: pointer;
 }

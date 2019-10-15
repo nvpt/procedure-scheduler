@@ -10,4 +10,8 @@ th {
   vertical-align: top !important;
 }
 
+.tr {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=procedures.module.css.map */
