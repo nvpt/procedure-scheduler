@@ -10,7 +10,7 @@ interface PatientsProps {}
 interface PatientsState {
     patients: PatientInterface[]
     emptyPlaceholder: string
-    show: boolean
+    showAdding: boolean
 }
 export default class Patients extends React.Component<
     PatientsProps,
@@ -19,23 +19,17 @@ export default class Patients extends React.Component<
     state = {
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
-        show: false,
+        showAdding: false,
     }
 
-    addPatient() {
+    handleShowHideModal(status: boolean = false) {
         this.setState({
-            show: true,
-        })
-    }
-
-    handleShowHideModal(status: boolean) {
-        this.setState({
-            show: status,
+            showAdding: status,
         })
     }
 
     render() {
-        const { patients, emptyPlaceholder, show } = this.state
+        const { patients, emptyPlaceholder, showAdding } = this.state
 
         if (patients && patients.length) {
             return (
@@ -44,7 +38,7 @@ export default class Patients extends React.Component<
                         title={'Patients'}
                         buttonLabel={'Patient'}
                         addAction={() => {
-                            this.addPatient()
+                            this.handleShowHideModal(true)
                         }}
                     />
                     <Table striped bordered hover>
@@ -71,10 +65,8 @@ export default class Patients extends React.Component<
                     </Table>
 
                     <AddPatientModal
-                        show={show}
-                        setOnHideShow={() => {
-                            this.handleShowHideModal(false)
-                        }}
+                        show={showAdding}
+                        setOnHideShow={()=>{this.handleShowHideModal()}}
                     />
                 </div>
             )
