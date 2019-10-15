@@ -1,0 +1,15 @@
+.breadcrumbs {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.item {
+    display: inline-block;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.item:hover {
+    text-decoration: underline;
+}

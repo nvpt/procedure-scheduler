@@ -1,4 +1,4 @@
-@import '../../../../Variables.scss';
+@import '../../../../variables';
 
 .sideMenuItem{
     list-style: none;
@@ -13,7 +13,6 @@
     padding: 8px 14px;
     text-decoration: none;
     color: unset;
-
 
     &:hover {
         cursor: pointer;
