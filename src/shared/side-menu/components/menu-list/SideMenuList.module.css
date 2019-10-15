@@ -1,4 +1,13 @@
 /*bg*/
 /*components*/
+.SideMenuList {
+  width: 100%;
+  padding-left: 0;
+  list-style: none;
+}
+
+.Item {
+  margin-bottom: 10px;
+}
 
 /*# sourceMappingURL=SideMenuList.module.css.map */

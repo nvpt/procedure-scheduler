@@ -10,6 +10,6 @@ $action-bg-color: #b7d6ee;
 
 /*components*/
 $app-min-width: 900px;
-$header-height: 60px;
-$footer-height: 60px;
+$header-height: 50px;
+$footer-height: $header-height;
 $side-menu-width: 220px;

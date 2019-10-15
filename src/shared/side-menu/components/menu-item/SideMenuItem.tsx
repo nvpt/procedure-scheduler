@@ -1,10 +1,11 @@
-import React from "react";
-import cn from "./SideMenuItem.module.css";
+import React from 'react'
+import cn from './SideMenuItem.module.css'
+import MenuItemInterface from '../../../../interfaces/MenuItemInterface'
+interface Props {
+    item: MenuItemInterface
+    className: string
+}
 
-export default class SideMenuItem extends React.Component{
-  state = {};
-
-  render() {
-    return <div className={cn.SideMenu}>Side Menu Item</div>;
-  }
+export const SideMenuItem: React.FC<Props> = ({ item, className }) => {
+    return <li className={[cn.SideMenuItem, className].join(' ')}>{item.LABEL}</li>
 }
