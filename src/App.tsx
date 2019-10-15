@@ -20,7 +20,7 @@ const App: React.FC = () => {
                     <Header />
                     <div className={cn.container}>
                         <div className={cn.content}>
-                            <Redirect from='/' to={MENU.DOCTORS.LINK} />
+                            <Redirect from='/' to={MENU.PATIENTS.LINK} />
                             <Route
                                 exact
                                 path={MENU.DOCTORS.LINK}
