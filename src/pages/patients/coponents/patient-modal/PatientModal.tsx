@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import PatientInterface from '../../../../interfaces/PatientInterface'
 
+type optionName = 'Name' | 'Sex' | 'DayOfBirth' // according to PatientInterface keys
+
 interface PropsAddPatients {
     show: boolean
     patientData: PatientInterface
@@ -21,34 +23,19 @@ export default class PatientModal extends React.Component<
     PropsAddPatients,
     StateAddPatients
 > {
-    constructor(props: PropsAddPatients) {
-        super(props)
-        this.state = {
-            modalTitle: 'Add Patient',
-            formData: {
-                Id: 0,
-                Name: '',
-                Sex: null,
-                DayOfBirth: '',
-            } as PatientInterface,
-        }
+    state = {
+        modalTitle: 'Add Patient',
+        formData: {
+            Id: 0,
+            Name: '',
+            Sex: null,
+            DayOfBirth: '',
+        } as PatientInterface,
     }
 
-    handleChangeName(event: any) {
+    handleChangeOption(event: any, optionName: optionName) {
         const formData = { ...this.state.formData }
-        formData.Name = event.target.value
-        this.setState({ formData })
-    }
-
-    handleChangeSex(event: any) {
-        const formData = { ...this.state.formData }
-        formData.Sex = event.target.value
-        this.setState({ formData })
-    }
-
-    handleChangeDoB(event: any) {
-        const formData = { ...this.state.formData }
-        formData.DayOfBirth = event.target.value
+        formData[optionName] = event.target.value
         this.setState({ formData })
     }
 
@@ -82,8 +69,11 @@ export default class PatientModal extends React.Component<
         const { show, saveAndHide, closeModal } = this.props
 
         const handleSave = () => {
-            const formData = this.state.formData;
-            formData.Id = formData.Id && formData.Id !== 0 ? formData.Id : Number(Date.now())
+            const formData = this.state.formData
+            formData.Id =
+                formData.Id && formData.Id !== 0
+                    ? formData.Id
+                    : Number(Date.now())
             saveAndHide(false, { ...this.state.formData })
             this.resetForm()
         }
@@ -112,7 +102,7 @@ export default class PatientModal extends React.Component<
                                 required
                                 value={this.state.formData.Name}
                                 onChange={(event: any) => {
-                                    this.handleChangeName(event)
+                                    this.handleChangeOption(event, 'Name')
                                 }}
                             />
                             <Form.Text className='text-muted'>
@@ -127,7 +117,7 @@ export default class PatientModal extends React.Component<
                                 placeholder='Day of Birth'
                                 value={this.state.formData.DayOfBirth}
                                 onChange={(event: any) => {
-                                    this.handleChangeDoB(event)
+                                    this.handleChangeOption(event, 'DayOfBirth')
                                 }}
                             />
                             <Form.Text className='text-muted'>
@@ -147,7 +137,7 @@ export default class PatientModal extends React.Component<
                                 }
                                 value={'Male'}
                                 onChange={(event: any) => {
-                                    this.handleChangeSex(event)
+                                    this.handleChangeOption(event, 'Sex')
                                 }}
                             />
                             <Form.Check
@@ -161,7 +151,7 @@ export default class PatientModal extends React.Component<
                                 }
                                 value={'Female'}
                                 onChange={(event: any) => {
-                                    this.handleChangeSex(event)
+                                    this.handleChangeOption(event, 'Sex')
                                 }}
                             />
                             <Form.Text className='text-muted'>
