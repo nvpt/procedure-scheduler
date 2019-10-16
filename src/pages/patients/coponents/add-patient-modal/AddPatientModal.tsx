@@ -1,17 +1,17 @@
-import React, { createRef } from 'react'
+import React from 'react'
 import cn from './add-patient-modal.module.css'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import PatientInterface from '../../../../interfaces/PatientInterface'
 
 interface AddPatientsProps {
     show: boolean
-    setOnHideShow: (status: boolean, formData: any) => void
-    writeFormData: (data: any) => void
+    setOnHideModal: (status: boolean, formData: any) => void
 }
 interface AddPatientsState {
     modalTitle: string
-    refs: any
+    formData: PatientInterface
 }
 
 export default class AddPatientModal extends React.Component<
@@ -20,29 +20,49 @@ export default class AddPatientModal extends React.Component<
 > {
     state = {
         modalTitle: 'Add Patient',
-        // refs: React.createRef<Form<any>>()
-        refs: React.createRef<HTMLFormElement>(),
+        formData: {
+            Id: 0,
+            Name: '',
+            Sex: null,
+            DayOfBirth: null,
+        },
+    }
+
+    handleChangeName(event: any) {
+        const formData = { ...this.state.formData }
+        formData.Name = event.target.value
+        formData.Id = Number(Date.now())
+        this.setState({ formData })
+    }
+
+    resetForm() {
+        const resetForm: PatientInterface = {
+            Id: 0,
+            Name: '',
+        }
+        this.setState({
+            formData: { ...resetForm },
+        })
     }
 
     render() {
         const { modalTitle } = this.state
-        const { show, setOnHideShow, writeFormData } = this.props
+        const { show, setOnHideModal } = this.props
+
         const handleClose = () => {
-            writeFormData({...this.state.refs})
-            let x = {...this.state.refs.current}
-            console.log('AddPatientModal.tsx__handleClose__33 >>> x: ', x);
+            setOnHideModal(false, { ...this.state.formData });
+            this.resetForm();
+            console.log('this.state: ', this.state);
             
-            setOnHideShow(false, x)
         }
 
         return (
             <div>
                 <Modal show={show} onHide={handleClose} animation={true}>
                     <form
-                        ref={this.state.refs}
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            handleClose();
+                        onSubmit={(event) => {
+                            event.preventDefault()
+                            handleClose()
                         }}>
                         <Modal.Header closeButton>
                             <Modal.Title>{modalTitle}</Modal.Title>
@@ -54,12 +74,16 @@ export default class AddPatientModal extends React.Component<
                                     type='text'
                                     placeholder='Enter Name'
                                     required
+                                    value={this.state.formData.Name}
+                                    onChange={(event: any) => {
+                                        this.handleChangeName(event)
+                                    }}
                                 />
                                 <Form.Text className='text-muted'>
                                     Field is required
                                 </Form.Text>
                             </Form.Group>
-                            <Form.Group controlId='formBirthDay'>
+                            <Form.Group controlId='formDayOfBirth'>
                                 <Form.Label column={false}>
                                     Day of Birth
                                 </Form.Label>

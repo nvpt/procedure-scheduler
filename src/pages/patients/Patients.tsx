@@ -11,8 +11,9 @@ interface PatientsState {
     patients: PatientInterface[]
     emptyPlaceholder: string
     showAdding: boolean
-    formData: any
+    formData: PatientInterface | {}
 }
+
 export default class Patients extends React.Component<
     PatientsProps,
     PatientsState
@@ -21,15 +22,52 @@ export default class Patients extends React.Component<
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
         showAdding: false,
-        formData: {}
+        formData: {},
     }
 
-    handleShowHideModal(status: boolean = false, formData: any = null) {
+    handleHideModal(
+        status: boolean = false,
+        formData: PatientInterface | {} = {},
+    ) {
+        console.log(
+            'Patients.tsx__handleShowHideModal__30 >>> formData: ',
+            formData,
+        )
+        console.log(
+            'Patients.tsx__handleShowHideModal__31 >>> this.state: ',
+            this.state,
+        )
         this.setState({
             showAdding: status,
-            // formData
+            formData: Object.assign(this.state.formData, formData),
         })
-        // console.log('this.state.formData: ', this.state.formData)
+        console.log(
+            'Patients.tsx__handleHideModal >>> this.state: ',
+            this.state,
+        )
+    }
+
+    handleShowModal(
+        status: boolean = false,
+        patient: PatientInterface | {} = {},
+    ) {
+        this.setState({
+            showAdding: status,
+        })
+        if(patient && Object.keys(patient).length) {
+            console.log('58');
+            
+            this.setState({
+                formData: { ...patient },
+            })
+        } else {
+            console.log('64');
+            
+            this.setState({
+                formData: {},
+            })
+        }
+
     }
 
     render() {
@@ -42,7 +80,7 @@ export default class Patients extends React.Component<
                         title={'Patients'}
                         buttonLabel={'Patient'}
                         addAction={() => {
-                            this.handleShowHideModal(true)
+                            this.handleShowModal(true, this.state.formData)
                         }}
                     />
                     <Table striped bordered hover>
@@ -72,21 +110,8 @@ export default class Patients extends React.Component<
 
                     <AddPatientModal
                         show={showAdding}
-                        writeFormData={(data: any)=>{
-                            console.log('Patients.tsx__76 >>> data: ', data);
-                            
-                            this.setState({
-                                formData: data
-                            })
-                            console.log('Patients.tsx__83 >>> data: ', data);
-                            if(this.state.formData){
-                                // @ts-ignore
-                                console.log('Patients.tsx__86 >>> this.state: ', this.state.formData.current);
-                            }
-                            
-                        }}
-                        setOnHideShow={(showModal, formData) => {
-                            this.handleShowHideModal(showModal, formData)
+                        setOnHideModal={(showModal, formData) => {
+                            this.handleHideModal(showModal, formData)
                         }}
                     />
                 </div>
