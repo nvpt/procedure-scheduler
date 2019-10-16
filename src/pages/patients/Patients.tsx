@@ -93,26 +93,27 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
         const { emptyPlaceholder, showModal, currentPatientData } = this.state
         const { patients } = this.props
 
-        if (patients && patients.length) {
-            return (
-                <div className={cn.patients}>
-                    <TopPanel
-                        title={'Patients'}
-                        buttonLabel={'Patient'}
-                        onAction={() => {
-                            this.handleShowModal(true)
-                        }}
-                    />
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Sex</th>
-                                <th>Day of Birth</th>
-                                <th> </th>
-                            </tr>
-                        </thead>
+        return (
+            <div className={cn.patients}>
+                <TopPanel
+                    title={'Patients'}
+                    buttonLabel={'Patient'}
+                    onAction={() => {
+                        this.handleShowModal(true)
+                    }}
+                />
+
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Sex</th>
+                            <th>Day of Birth</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    {patients && patients.length ? (
                         <tbody>
                             {patients.map((patient, i) => {
                                 return (
@@ -140,27 +141,32 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
                                 )
                             })}
                         </tbody>
-                    </Table>
-                    {this.state.showModal ? (
-                        <AddPatientModal
-                            show={showModal}
-                            patientData={currentPatientData}
-                            closeModal={() => {
-                                this.handleCloseModal()
-                            }}
-                            saveAndHide={(showModal, currentPatientData) => {
-                                this.handleSaveAndHideModal(
-                                    showModal,
-                                    currentPatientData,
-                                )
-                            }}
-                        />
-                    ) : null}
-                </div>
-            )
-        } else {
-            return <div className={cn.patients}>{emptyPlaceholder}</div>
-        }
+                    ) : (
+                        <tbody>
+                            <tr>
+                                <td colSpan={5}>{emptyPlaceholder}</td>
+                            </tr>
+                        </tbody>
+                    )}
+                </Table>
+
+                {this.state.showModal ? (
+                    <AddPatientModal
+                        show={showModal}
+                        patientData={currentPatientData}
+                        closeModal={() => {
+                            this.handleCloseModal()
+                        }}
+                        saveAndHide={(showModal, currentPatientData) => {
+                            this.handleSaveAndHideModal(
+                                showModal,
+                                currentPatientData,
+                            )
+                        }}
+                    />
+                ) : null}
+            </div>
+        )
     }
 
     _patientIsExist(patient: PatientInterface) {
