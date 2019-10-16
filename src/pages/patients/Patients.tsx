@@ -1,11 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import cn from './patients.module.css'
 import { Table } from 'react-bootstrap'
-import { PatientsList } from '../../mock/PatientsMock'
+
+import { patientsActions } from '../../store-global/reducers/PatientsReducer'
+
+import cn from './patients.module.css'
+
 import TopPanel from '../../shared/top-panel/TopPanel'
 import AddPatientModal from './coponents/add-patient-modal/AddPatientModal'
 import PatientInterface from '../../interfaces/PatientInterface'
+
+import { PatientsList } from '../../mock/PatientsMock'
 
 interface PatientsProps {}
 interface PatientsState {
@@ -15,10 +20,7 @@ interface PatientsState {
     currentPatientData: PatientInterface
 }
 
-export default class Patients extends React.Component<
-    PatientsProps,
-    PatientsState
-> {
+class Patients extends React.Component<PatientsProps, PatientsState> {
     state = {
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
@@ -62,6 +64,10 @@ export default class Patients extends React.Component<
         this.setState({
             showModal: false,
         })
+    }
+
+    getPatients(){
+
     }
 
     render() {
@@ -131,3 +137,17 @@ export default class Patients extends React.Component<
         }
     }
 }
+
+export default connect(
+    (storeGlobal) => {
+        console.log('Patients.tsx__ >>> storeGlobal: ', storeGlobal)
+
+        return { store: storeGlobal }
+    },
+    (dispatch) => ({
+        onAddPatients: (patient: PatientInterface) => {
+            console.log('patient: ', patient)
+            dispatch({ type: patientsActions.ADD_PATIENT, patient })
+        },
+    }),
+)(Patients)
