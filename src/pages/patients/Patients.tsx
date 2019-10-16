@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import cn from './patients.module.css'
 import { Table } from 'react-bootstrap'
 import { PatientsList } from '../../mock/PatientsMock'
@@ -108,8 +109,6 @@ export default class Patients extends React.Component<
                             })}
                         </tbody>
                     </Table>
-                    <div>{this.state.currentPatientData.Name}</div>
-
                     {this.state.showModal ? (
                         <AddPatientModal
                             show={showModal}
