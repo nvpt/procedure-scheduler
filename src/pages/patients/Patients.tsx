@@ -12,32 +12,42 @@ import PatientInterface from '../../interfaces/PatientInterface'
 
 import { PatientsList } from '../../mock/PatientsMock'
 
-interface PatientsProps {}
-interface PatientsState {
+interface PatientsProps {
     patients: PatientInterface[]
+    onGetPatients: (patients: PatientInterface[]) => void
+    onAddPatient: (patients: PatientInterface[]) => void
+    onUpdatePatient: (patients: PatientInterface[]) => void
+    onDeletePatient: (patients: PatientInterface[]) => void
+}
+interface PatientsState {
     emptyPlaceholder: string
     showModal: boolean
     currentPatientData: PatientInterface
 }
 
 class Patients extends React.Component<PatientsProps, PatientsState> {
-    state = {
-        patients: PatientsList,
-        emptyPlaceholder: 'No patients.',
-        showModal: false,
-        currentPatientData: {} as PatientInterface,
+    constructor(props: PatientsProps) {
+        super(props)
+        this.state = {
+            emptyPlaceholder: 'No patients.',
+            showModal: false,
+            currentPatientData: {} as PatientInterface,
+        }
+        this.getPatients()
     }
 
     handleSaveAndHideModal(
         status: boolean = false,
         currentPatientData: PatientInterface = {} as PatientInterface,
     ) {
+        if (this._patientIsExist(currentPatientData)) {
+            this.props.onUpdatePatient([currentPatientData])
+        } else {
+            this.props.onAddPatient([currentPatientData])
+        }
         this.setState({
             showModal: status,
-            currentPatientData: Object.assign(
-                this.state.currentPatientData,
-                currentPatientData,
-            ),
+            currentPatientData: {} as PatientInterface,
         })
     }
 
@@ -47,7 +57,10 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
     ) {
         if (patient && Object.keys(patient).length) {
             this.setState({
-                currentPatientData: { ...patient },
+                currentPatientData: Object.assign(
+                    this.state.currentPatientData,
+                    patient,
+                ),
             })
         } else {
             this.setState({
@@ -66,17 +79,19 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
         })
     }
 
-    getPatients(){
+    handleDeletePatient(event: any, patient: PatientInterface) {
+        event.stopPropagation()
+        this.props.onDeletePatient([patient])
+    }
 
+    getPatients() {
+        //todo: *** here should be request
+        this.props.onGetPatients(PatientsList)
     }
 
     render() {
-        const {
-            patients,
-            emptyPlaceholder,
-            showModal,
-            currentPatientData,
-        } = this.state
+        const { emptyPlaceholder, showModal, currentPatientData } = this.state
+        const { patients } = this.props
 
         if (patients && patients.length) {
             return (
@@ -95,6 +110,7 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
                                 <th>Name</th>
                                 <th>Sex</th>
                                 <th>Day of Birth</th>
+                                <th> </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,6 +126,16 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
                                         <td>{patient.Name}</td>
                                         <td>{patient.Sex}</td>
                                         <td>{patient.DayOfBirth}</td>
+                                        <td
+                                            className={cn.delete}
+                                            onClick={(event) => {
+                                                this.handleDeletePatient(
+                                                    event,
+                                                    patient,
+                                                )
+                                            }}>
+                                            x
+                                        </td>
                                     </tr>
                                 )
                             })}
@@ -136,18 +162,31 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
             return <div className={cn.patients}>{emptyPlaceholder}</div>
         }
     }
+
+    _patientIsExist(patient: PatientInterface) {
+        return this.props.patients.some(
+            (person: PatientInterface) => person.Id === patient.Id,
+        )
+    }
 }
 
 export default connect(
-    (storeGlobal) => {
-        console.log('Patients.tsx__ >>> storeGlobal: ', storeGlobal)
-
-        return { store: storeGlobal }
+    //todo: *** should define type
+    (storeGlobal: any) => {
+        return { patients: storeGlobal.patients }
     },
     (dispatch) => ({
-        onAddPatients: (patient: PatientInterface) => {
-            console.log('patient: ', patient)
-            dispatch({ type: patientsActions.ADD_PATIENT, patient })
+        onGetPatients: (patients: PatientInterface[]) => {
+            dispatch({ type: patientsActions.GET_PATIENTS, patients })
+        },
+        onAddPatient: (patients: PatientInterface[]) => {
+            dispatch({ type: patientsActions.ADD_PATIENT, patients })
+        },
+        onUpdatePatient: (patients: PatientInterface[]) => {
+            dispatch({ type: patientsActions.UPDATE_PATIENT, patients })
+        },
+        onDeletePatient: (patients: PatientInterface[]) => {
+            dispatch({ type: patientsActions.DELETE_PATIENT, patients })
         },
     }),
 )(Patients)
