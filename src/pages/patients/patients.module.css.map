@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../../variables.scss","../../common.scss"],"names":[],"mappings":"AAIA;AAMA;ACRA;AACA;EACI;;;AAIJ;AACA;EACI","file":"patients.module.css"}
+{"version":3,"sourceRoot":"","sources":["../../styles/variables.scss","../../styles/common.scss","patients.module.scss"],"names":[],"mappings":"AAKA;AAMA;ACTA;AACA;EACI;;;AAIJ;AACA;EACI;;;ACJJ;EACI;EACA;EACA;EACA;;AAEA;EACI,YFLc;EEMd,OFbc","file":"patients.module.css"}

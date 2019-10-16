@@ -10,4 +10,15 @@ th {
   vertical-align: top !important;
 }
 
+.delete {
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  font-weight: 500;
+}
+.delete:hover {
+  background: #1b4782;
+  color: #fbffff;
+}
+
 /*# sourceMappingURL=patients.module.css.map */

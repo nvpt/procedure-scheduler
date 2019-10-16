@@ -1,5 +1,17 @@
-@import "../../common";
+@import '../../styles/common';
 
 .patients {
-@extend .table-padding;
+    @extend .table-padding;
+}
+
+.delete {
+    text-align: center;
+    cursor: pointer;
+    padding: 10px;
+    font-weight: 500;
+
+    &:hover {
+        background: $components-bg-color;
+        color: $content-light-color;
+    }
 }
