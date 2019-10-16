@@ -191,7 +191,6 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
 
 export default connect(
     (storeGlobal: any) => {
-        console.log('Procedures.tsx__ >>> storeGlobal: ', storeGlobal)
         return {
             procedures: storeGlobal.procedures,
             patients: storeGlobal.patients,

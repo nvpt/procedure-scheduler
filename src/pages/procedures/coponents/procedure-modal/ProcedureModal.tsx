@@ -48,15 +48,6 @@ export default class ProcedureModal extends React.Component<
     }
 
     handleChangeOption(event: any, optionName: optionName) {
-        console.log(
-            'ProcedureModal.tsx__handleChangeOption >>> event: ',
-            event.target.value,
-        )
-        console.log(
-            'ProcedureModal.tsx__handleChangeOption >>> optionName: ',
-            optionName,
-        )
-
         const formData = { ...this.state.formData }
         formData[optionName] = event.target.value
         this.setState({ formData })
@@ -89,11 +80,6 @@ export default class ProcedureModal extends React.Component<
     }
 
     initFormData() {
-        console.log(
-            'ProcedureModal.tsx__initFormData >>> this.props: ',
-            this.props,
-        )
-
         if (
             this.props.procedureData &&
             Object.keys(this.props.procedureData).length
@@ -105,10 +91,6 @@ export default class ProcedureModal extends React.Component<
                 ),
             })
         }
-        console.log(
-            'ProcedureModal.tsx__initFormData >>> this.state.formData: ',
-            this.state.formData,
-        )
     }
 
     componentDidMount(): void {
@@ -137,6 +119,11 @@ export default class ProcedureModal extends React.Component<
         return (
             <div>
                 <Modal show={show} onHide={handleClose} animation={true}>
+                    <form
+                        onSubmit={(event) => {
+                            event.preventDefault()
+                            handleSave()
+                        }}>
                     <Modal.Header closeButton>
                         <Modal.Title>{modalTitle}</Modal.Title>
                     </Modal.Header>
@@ -264,10 +251,11 @@ export default class ProcedureModal extends React.Component<
                         <Button variant='secondary' onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant='primary' onClick={handleClose}>
+                        <Button variant='primary' onClick={handleSave}>
                             Save Changes
                         </Button>
                     </Modal.Footer>
+                    </form>
                 </Modal>
             </div>
         )
