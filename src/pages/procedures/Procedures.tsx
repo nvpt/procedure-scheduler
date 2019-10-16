@@ -166,6 +166,7 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
                     <ProcedureModal
                         show={showModal}
                         procedureData={currentProcedureData}
+                        patients={this.props.patients}
                         closeModal={() => {
                             this.handleCloseModal()
                         }}

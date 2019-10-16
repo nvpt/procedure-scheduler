@@ -8,6 +8,7 @@ import ProcedureInterface, {
     statusType,
 } from '../../../../interfaces/ProcedureInterface'
 import Form from 'react-bootstrap/Form'
+import PatientInterface from '../../../../interfaces/PatientInterface'
 
 type optionName =
     | 'Patient'
@@ -16,9 +17,12 @@ type optionName =
     | 'PlannedStartTime'
     | 'EstimatedEndTime' // according to ProcedureInterface keys
 
+const STATUSES: statusType[] = ['Planned', 'In Progress', 'Finished']
+
 interface AddProceduresProps {
     show: boolean
     procedureData: ProcedureInterface
+    patients: PatientInterface[]
     saveAndHide: (status: boolean, procedureData: any) => void
     closeModal: () => void
 }
@@ -44,8 +48,29 @@ export default class ProcedureModal extends React.Component<
     }
 
     handleChangeOption(event: any, optionName: optionName) {
+        console.log(
+            'ProcedureModal.tsx__handleChangeOption >>> event: ',
+            event.target.value,
+        )
+        console.log(
+            'ProcedureModal.tsx__handleChangeOption >>> optionName: ',
+            optionName,
+        )
+
         const formData = { ...this.state.formData }
         formData[optionName] = event.target.value
+        this.setState({ formData })
+    }
+
+    handleChangePatient(patient: PatientInterface) {
+        const formData = { ...this.state.formData }
+        formData.Patient = patient.Name
+        this.setState({ formData })
+    }
+
+    handleChangeStatus(status: statusType) {
+        const formData = { ...this.state.formData }
+        formData.Status = status
         this.setState({ formData })
     }
 
@@ -64,14 +89,26 @@ export default class ProcedureModal extends React.Component<
     }
 
     initFormData() {
+        console.log(
+            'ProcedureModal.tsx__initFormData >>> this.props: ',
+            this.props,
+        )
+
         if (
             this.props.procedureData &&
             Object.keys(this.props.procedureData).length
         ) {
             this.setState({
-                formData: { ...this.props.procedureData },
+                formData: Object.assign(
+                    this.state.formData,
+                    this.props.procedureData,
+                ),
             })
         }
+        console.log(
+            'ProcedureModal.tsx__initFormData >>> this.state.formData: ',
+            this.state.formData,
+        )
     }
 
     componentDidMount(): void {
@@ -108,19 +145,26 @@ export default class ProcedureModal extends React.Component<
                             <Form.Label column={false}>Patient</Form.Label>
                             <DropdownButton
                                 id='dropdown-basic-button'
-                                title={this.state.formData.Patient ? this.state.formData.Patient : 'Select Patient'}
-                                onChange={(event: any) => {
-                                    this.handleChangeOption(event, 'Patient')
-                                }}>
-                                <Dropdown.Item href='#/action-1'>
-                                    Patient1
-                                </Dropdown.Item>
-                                <Dropdown.Item href='#/action-1'>
-                                    Patient2
-                                </Dropdown.Item>
-                                <Dropdown.Item href='#/action-1'>
-                                    Patient3
-                                </Dropdown.Item>
+                                title={
+                                    this.state.formData.Patient
+                                        ? this.state.formData.Patient
+                                        : 'Select Patient'
+                                }>
+                                {this.props.patients.map(
+                                    (patient: PatientInterface, i) => {
+                                        return (
+                                            <Dropdown.Item
+                                                key={i}
+                                                onClick={() => {
+                                                    this.handleChangePatient(
+                                                        patient,
+                                                    )
+                                                }}>
+                                                {patient.Name}
+                                            </Dropdown.Item>
+                                        )
+                                    },
+                                )}
                             </DropdownButton>
                             <Form.Text className='text-muted'>
                                 Field is required
@@ -128,7 +172,22 @@ export default class ProcedureModal extends React.Component<
                         </Form.Group>
                         <Form.Group controlId='Description'>
                             <Form.Label column={false}>Description</Form.Label>
-                            <Form.Control as='textarea' rows='3' />
+                            <Form.Control
+                                as='textarea'
+                                rows='3'
+                                value={
+                                    this.state.formData.Description
+                                        ? this.state.formData.Description
+                                        : ''
+                                }
+                                placeholder={'Enter Description'}
+                                onChange={(event: any) => {
+                                    this.handleChangeOption(
+                                        event,
+                                        'Description',
+                                    )
+                                }}
+                            />
                             <Form.Text className='text-muted'>
                                 Field is required
                             </Form.Text>
@@ -136,20 +195,30 @@ export default class ProcedureModal extends React.Component<
                         <Form.Group controlId='patient'>
                             <Form.Label column={false}>Status</Form.Label>
                             <DropdownButton
-                                id='dropdown-basic-button'
-                                title={this.state.formData.Status}
-                                onChange={(event: any) => {
-                                    this.handleChangeOption(event, 'Status')
-                                }}>
-                                <Dropdown.Item href='#/action-1'>
-                                    Planned
-                                </Dropdown.Item>
-                                <Dropdown.Item href='#/action-2'>
-                                    In Progress
-                                </Dropdown.Item>
-                                <Dropdown.Item href='#/action-3'>
-                                    Finished
-                                </Dropdown.Item>
+                                id='Status'
+                                variant={
+                                    this.state.formData.Status === 'Planned'
+                                        ? 'primary'
+                                        : this.state.formData.Status ===
+                                          'In Progress'
+                                        ? 'success'
+                                        : this.state.formData.Status ===
+                                          'Finished'
+                                        ? 'secondary'
+                                        : 'primary'
+                                }
+                                title={this.state.formData.Status}>
+                                {STATUSES.map((status: statusType, i) => {
+                                    return (
+                                        <Dropdown.Item
+                                            key={i}
+                                            onClick={() => {
+                                                this.handleChangeStatus(status)
+                                            }}>
+                                            {status}
+                                        </Dropdown.Item>
+                                    )
+                                })}
                             </DropdownButton>
                         </Form.Group>
 
@@ -173,15 +242,15 @@ export default class ProcedureModal extends React.Component<
                                 Field is required
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group controlId='formDayOfBirth'>
+                        <Form.Group controlId='formName'>
                             <Form.Label column={false}>
                                 Estimated End Time
                             </Form.Label>
                             <Form.Control
-                                type='date'
-                                name='Estimated End Time'
-                                placeholder='Estimated End Time'
-                                value={'this.state.formData.EstimatedEndTime'}
+                                type='text'
+                                placeholder='e.g. 30m or 1h 20m'
+                                required
+                                value={this.state.formData.EstimatedEndTime}
                                 onChange={(event: any) => {
                                     this.handleChangeOption(
                                         event,
