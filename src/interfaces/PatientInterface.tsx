@@ -4,5 +4,5 @@ export default interface PatientInterface {
     Id: number | null
     Name: string
     Sex?: sexType
-    DayOfBirth?: string | null
+    DayOfBirth?: string | ''
 }
