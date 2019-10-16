@@ -26,10 +26,10 @@ export default class AddPatientModal extends React.Component<
         this.state = {
             modalTitle: 'Add Patient',
             formData: {
-                Id: null,
+                Id: 0,
                 Name: '',
                 Sex: null,
-                DayOfBirth: null,
+                DayOfBirth: '',
             } as PatientInterface,
         }
     }
@@ -37,14 +37,18 @@ export default class AddPatientModal extends React.Component<
     handleChangeName(event: any) {
         const formData = { ...this.state.formData }
         formData.Name = event.target.value
-        formData.Id = formData.Id ? formData.Id : Number(Date.now())
         this.setState({ formData })
     }
 
     handleChangeSex(event: any) {
         const formData = { ...this.state.formData }
         formData.Sex = event.target.value
-        formData.Id = formData.Id ? formData.Id : Number(Date.now())
+        this.setState({ formData })
+    }
+
+    handleChangeDoB(event: any) {
+        const formData = { ...this.state.formData }
+        formData.DayOfBirth = event.target.value
         this.setState({ formData })
     }
 
@@ -59,7 +63,10 @@ export default class AddPatientModal extends React.Component<
     }
 
     initFormData() {
-        if (this.props.patientData && Object.keys(this.props.patientData).length) {
+        if (
+            this.props.patientData &&
+            Object.keys(this.props.patientData).length
+        ) {
             this.setState({
                 formData: { ...this.props.patientData },
             })
@@ -67,7 +74,7 @@ export default class AddPatientModal extends React.Component<
     }
 
     componentDidMount(): void {
-        this.initFormData();
+        this.initFormData()
     }
 
     render() {
@@ -75,6 +82,8 @@ export default class AddPatientModal extends React.Component<
         const { show, saveAndHide, closeModal } = this.props
 
         const handleSave = () => {
+            const formData = this.state.formData;
+            formData.Id = formData.Id && formData.Id !== 0 ? formData.Id : Number(Date.now())
             saveAndHide(false, { ...this.state.formData })
             this.resetForm()
         }
@@ -116,6 +125,10 @@ export default class AddPatientModal extends React.Component<
                                 type='date'
                                 name='Day of Birth'
                                 placeholder='Day of Birth'
+                                value={this.state.formData.DayOfBirth}
+                                onChange={(event: any) => {
+                                    this.handleChangeDoB(event)
+                                }}
                             />
                             <Form.Text className='text-muted'>
                                 Field is required
