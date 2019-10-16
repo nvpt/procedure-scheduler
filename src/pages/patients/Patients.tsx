@@ -10,8 +10,8 @@ interface PatientsProps {}
 interface PatientsState {
     patients: PatientInterface[]
     emptyPlaceholder: string
-    showAdding: boolean
-    formData: PatientInterface | {}
+    showModal: boolean
+    currentPatientData: PatientInterface
 }
 
 export default class Patients extends React.Component<
@@ -21,57 +21,47 @@ export default class Patients extends React.Component<
     state = {
         patients: PatientsList,
         emptyPlaceholder: 'No patients.',
-        showAdding: false,
-        formData: {},
+        showModal: false,
+        currentPatientData: {} as PatientInterface,
     }
 
-    handleHideModal(
+    handleSaveAndHideModal(
         status: boolean = false,
-        formData: PatientInterface | {} = {},
+        currentPatientData: PatientInterface = {} as PatientInterface,
     ) {
-        console.log(
-            'Patients.tsx__handleShowHideModal__30 >>> formData: ',
-            formData,
-        )
-        console.log(
-            'Patients.tsx__handleShowHideModal__31 >>> this.state: ',
-            this.state,
-        )
         this.setState({
-            showAdding: status,
-            formData: Object.assign(this.state.formData, formData),
+            showModal: status,
+            currentPatientData: Object.assign(this.state.currentPatientData, currentPatientData),
         })
-        console.log(
-            'Patients.tsx__handleHideModal >>> this.state: ',
-            this.state,
-        )
     }
 
     handleShowModal(
         status: boolean = false,
-        patient: PatientInterface | {} = {},
+        patient: PatientInterface = {} as PatientInterface,
     ) {
-        this.setState({
-            showAdding: status,
-        })
         if(patient && Object.keys(patient).length) {
-            console.log('58');
-            
             this.setState({
-                formData: { ...patient },
+                currentPatientData: { ...patient },
             })
         } else {
-            console.log('64');
-            
             this.setState({
-                formData: {},
+                currentPatientData: {} as PatientInterface,
             })
         }
 
+        this.setState({
+            showModal: status,
+        })
+    }
+
+    handleCloseModal() {
+        this.setState({
+            showModal: false,
+        })
     }
 
     render() {
-        const { patients, emptyPlaceholder, showAdding, formData } = this.state
+        const { patients, emptyPlaceholder, showModal, currentPatientData } = this.state
 
         if (patients && patients.length) {
             return (
@@ -79,8 +69,8 @@ export default class Patients extends React.Component<
                     <TopPanel
                         title={'Patients'}
                         buttonLabel={'Patient'}
-                        addAction={() => {
-                            this.handleShowModal(true, this.state.formData)
+                        onAction={() => {
+                            this.handleShowModal(true)
                         }}
                     />
                     <Table striped bordered hover>
@@ -93,11 +83,11 @@ export default class Patients extends React.Component<
                             </tr>
                         </thead>
                         <tbody>
-                            {patients.map((patient) => {
+                            {patients.map((patient, i) => {
                                 return (
-                                    <tr
-                                        key={patient.Id}
-                                        style={{ cursor: 'pointer' }}>
+                                    <tr key={i}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={()=>{this.handleShowModal(true, patient)}}>
                                         <td>{patient.Id}</td>
                                         <td>{patient.Name}</td>
                                         <td>{patient.Sex}</td>
@@ -107,13 +97,20 @@ export default class Patients extends React.Component<
                             })}
                         </tbody>
                     </Table>
+                    <div>{this.state.currentPatientData.Name}</div>
+                    <div hidden={!showModal}>
+                        <AddPatientModal
+                            show={showModal}
+                            patientData={currentPatientData}
+                            closeModal={() => {
+                                this.handleCloseModal()
+                            }}
+                            saveAndHide={(showModal, currentPatientData) => {
+                                this.handleSaveAndHideModal(showModal, currentPatientData)
+                            }}
+                        />
+                    </div>
 
-                    <AddPatientModal
-                        show={showAdding}
-                        setOnHideModal={(showModal, formData) => {
-                            this.handleHideModal(showModal, formData)
-                        }}
-                    />
                 </div>
             )
         } else {

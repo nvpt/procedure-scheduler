@@ -37,7 +37,7 @@ export default class Procedures extends React.Component<
                     <TopPanel
                         title={'Procedures'}
                         buttonLabel={'Procedure'}
-                        addAction={() => {
+                        onAction={() => {
                             this.handleShowHideModal(true)
                         }}
                     />

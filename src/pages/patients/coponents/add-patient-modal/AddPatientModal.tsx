@@ -5,35 +5,59 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import PatientInterface from '../../../../interfaces/PatientInterface'
 
-interface AddPatientsProps {
+interface PropsAddPatients {
     show: boolean
-    setOnHideModal: (status: boolean, formData: any) => void
+    patientData: PatientInterface
+    saveAndHide: (status: boolean, patientData: any) => void
+    closeModal: () => void
 }
-interface AddPatientsState {
+
+interface StateAddPatients {
     modalTitle: string
     formData: PatientInterface
 }
 
-export default class AddPatientModal extends React.Component<
-    AddPatientsProps,
-    AddPatientsState
-> {
-    state = {
-        modalTitle: 'Add Patient',
-        formData: {
-            Id: 0,
-            Name: '',
-            Sex: null,
-            DayOfBirth: null,
-        },
+export default class AddPatientModal extends React.Component<PropsAddPatients,
+    StateAddPatients> {
+    constructor(props: PropsAddPatients) {
+        super(props)
+        this.state = {
+            modalTitle: 'Add Patient',
+            formData: {
+                Id: null,
+                Name: '',
+                Sex: null,
+                DayOfBirth: null,
+            } as PatientInterface,
+        }
+        // this.initFormData()
+        console.log(
+            'AddPatientModal.tsx__constructor >>> this.state.formData: ',
+            this.state.formData,
+        )
     }
 
     handleChangeName(event: any) {
         const formData = { ...this.state.formData }
         formData.Name = event.target.value
-        formData.Id = Number(Date.now())
+        formData.Id = formData.Id ? formData.Id : Number(Date.now())
         this.setState({ formData })
     }
+
+    // initFormData() {
+    //     console.log('39')
+    //
+    //     if (
+    //         this.props.patientData &&
+    //         Object.keys(this.props.patientData).length
+    //     ) {
+    //         console.log('42')
+    //
+    //         this.setState({
+    //             formData: { ...this.props.patientData },
+    //         })
+    //     }
+    // }
 
     resetForm() {
         const resetForm: PatientInterface = {
@@ -47,22 +71,26 @@ export default class AddPatientModal extends React.Component<
 
     render() {
         const { modalTitle } = this.state
-        const { show, setOnHideModal } = this.props
+        const { show, saveAndHide, closeModal, patientData } = this.props
+console.log('AddPatientModal.tsx__render >>> patientData: ', patientData);
 
-        const handleClose = () => {
-            setOnHideModal(false, { ...this.state.formData });
-            this.resetForm();
-            console.log('this.state: ', this.state);
-            
+        const handleSave = () => {
+            saveAndHide(false, { ...this.state.formData })
+            this.resetForm()
+        }
+
+        const handleCLose = () => {
+            closeModal()
+            this.resetForm()
         }
 
         return (
             <div>
-                <Modal show={show} onHide={handleClose} animation={true}>
+                <Modal show={show} onHide={handleCLose} animation={true}>
                     <form
                         onSubmit={(event) => {
                             event.preventDefault()
-                            handleClose()
+                            handleSave()
                         }}>
                         <Modal.Header closeButton>
                             <Modal.Title>{modalTitle}</Modal.Title>
@@ -74,7 +102,7 @@ export default class AddPatientModal extends React.Component<
                                     type='text'
                                     placeholder='Enter Name'
                                     required
-                                    value={this.state.formData.Name}
+                                    value={this.props.patientData.Name ? this.props.patientData.Name : this.state.formData.Name}
                                     onChange={(event: any) => {
                                         this.handleChangeName(event)
                                     }}
@@ -116,10 +144,10 @@ export default class AddPatientModal extends React.Component<
                             </Form.Group>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant='secondary' onClick={handleClose}>
+                            <Button variant='secondary' onClick={handleCLose}>
                                 Cancel
                             </Button>
-                            <Button variant='primary' onClick={handleClose}>
+                            <Button variant='primary' onClick={handleSave}>
                                 Save Changes
                             </Button>
                         </Modal.Footer>
