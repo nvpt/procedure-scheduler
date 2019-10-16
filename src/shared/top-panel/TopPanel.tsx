@@ -29,7 +29,6 @@ export default class TopPanel extends React.Component<
                             <Button
                                 block
                                 variant='outline-primary'
-                                size='sm'
                                 onClick={onAction}>
                                 {`Add ${buttonLabel}`}
                             </Button>

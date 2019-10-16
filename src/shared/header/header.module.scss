@@ -1,4 +1,4 @@
-@import "../../variables";
+@import "../../styles/variables";
 
 .header {
     position: relative;
@@ -13,4 +13,9 @@
     font-weight: 500;
     box-shadow: 0 3px 9px -1px gray;
     border-bottom: 1px solid $action-bg-color;
+}
+
+
+.logoWrap {
+    padding-right: 8px;
 }

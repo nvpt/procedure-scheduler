@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '../../styles/variables';
 
 .sideMenu {
     display: flex;
@@ -8,7 +8,7 @@
     position: relative;
     width: $side-menu-width;
     min-width: $side-menu-width;
-    padding-top: 16px;
+    padding-top: calc(16px + #{$header-height});
     padding-left: 20px;
     padding-right: 20px;
     background: $components-bg-color;
@@ -24,10 +24,6 @@
         height: 100%;
         background: $content-light-color;
     }
-}
-
-.logoWrap {
-    padding-bottom: 30px;
 }
 
 a {

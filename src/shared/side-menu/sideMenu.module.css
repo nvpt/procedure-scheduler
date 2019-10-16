@@ -8,7 +8,7 @@
   position: relative;
   width: 220px;
   min-width: 220px;
-  padding-top: 16px;
+  padding-top: calc(16px + 50px);
   padding-left: 20px;
   padding-right: 20px;
   background: #1b4782;
@@ -23,10 +23,6 @@
   width: 1px;
   height: 100%;
   background: #fbffff;
-}
-
-.logoWrap {
-  padding-bottom: 30px;
 }
 
 a:hover {

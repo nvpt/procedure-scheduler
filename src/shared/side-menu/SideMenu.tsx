@@ -8,9 +8,6 @@ interface Props {}
 export const SideMenu: React.FC<Props> = () => {
     return (
         <div className={cn.sideMenu}>
-            <div className={cn.logoWrap}>
-                <img src={logo} alt='' width={'40'} height={'40'} />
-            </div>
             <SideMenuList />
         </div>
     )
