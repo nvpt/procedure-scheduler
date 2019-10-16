@@ -45,7 +45,7 @@ export default class PatientModal extends React.Component<
             Name: '',
         }
         this.setState({
-            formData: { ...resetForm },
+            formData: resetForm,
         })
     }
 
@@ -78,13 +78,13 @@ export default class PatientModal extends React.Component<
             this.resetForm()
         }
 
-        const handleCLose = () => {
+        const handleClose = () => {
             closeModal()
             this.resetForm()
         }
 
         return (
-            <Modal show={show} onHide={handleCLose} animation={true}>
+            <Modal show={show} onHide={handleClose} animation={true}>
                 <form
                     onSubmit={(event) => {
                         event.preventDefault()
@@ -160,7 +160,7 @@ export default class PatientModal extends React.Component<
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant='secondary' onClick={handleCLose}>
+                        <Button variant='secondary' onClick={handleClose}>
                             Cancel
                         </Button>
                         <Button variant='primary' onClick={handleSave}>

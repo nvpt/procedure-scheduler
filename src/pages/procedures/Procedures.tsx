@@ -108,7 +108,7 @@ class Procedures extends React.Component<
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Procedure</th>
+                            <th>Patient</th>
                             <th>Description</th>
                             <th>Status</th>
                             <th>Planned Start Time</th>
