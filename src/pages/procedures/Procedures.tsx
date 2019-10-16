@@ -1,12 +1,16 @@
 import React from 'react'
-import cn from './procedures.module.css'
 import { Table } from 'react-bootstrap'
-import TopPanel from '../../shared/top-panel/TopPanel'
-import ProcedureModal from './coponents/procedure-modal/ProcedureModal'
-import { ProceduresList } from '../../mock/ProceduresMock'
+
 import { connect } from 'react-redux'
-import ProcedureInterface from '../../interfaces/ProcedureInterface'
 import { proceduresActions } from '../../store-global/reducers/ProceduresReducer'
+
+import cn from './procedures.module.css'
+import TopPanel from '../../shared/top-panel/TopPanel'
+
+import ProcedureModal from './coponents/procedure-modal/ProcedureModal'
+import ProcedureInterface from '../../interfaces/ProcedureInterface'
+import { ProceduresList } from '../../mock/ProceduresMock'
+
 
 interface ProceduresProps {
     procedures: ProcedureInterface[]
