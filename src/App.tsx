@@ -1,18 +1,19 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { patientsActions } from './store-global/reducers/PatientsReducer'
+
 import cn from './app.module.css'
 
-import { MENU } from './Constants'
-import Header from './shared/header/Header'
-import Footer from './shared/footer/Footer'
-import { SideMenu } from './shared/side-menu/SideMenu'
 import Doctors from './pages/doctors/Doctors'
 import Patients from './pages/patients/Patients'
 import Procedures from './pages/procedures/Procedures'
 import Rooms from './pages/rooms/Rooms'
-import { connect } from 'react-redux'
+import Header from './shared/header/Header'
+import Footer from './shared/footer/Footer'
+import { SideMenu } from './shared/side-menu/SideMenu'
 import PatientInterface from './interfaces/PatientInterface'
-import { patientsActions } from './store-global/reducers/PatientsReducer'
+import { MENU } from './Constants'
 import { PatientsList } from './mock/PatientsMock'
 
 interface PropsApp {
@@ -25,9 +26,6 @@ class App extends React.Component<PropsApp, StateApp> {
         this.getPatients()
     }
 
-    /**
-     * to avoid repeat request in child components
-     */
     getPatients() {
         PatientsList &&
             this.props.onGetPatients &&
@@ -43,7 +41,7 @@ class App extends React.Component<PropsApp, StateApp> {
                         <Header />
                         <div className={cn.container}>
                             <div className={cn.content}>
-                                <Redirect from='/' to={MENU.PROCEDURES.LINK} />
+                                <Redirect from='/' to={MENU.DOCTORS.LINK} />
                                 <Route
                                     exact
                                     path={MENU.DOCTORS.LINK}
