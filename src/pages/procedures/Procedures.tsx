@@ -18,7 +18,6 @@ import { PatientsList } from '../../mock/PatientsMock'
 interface ProceduresProps {
     procedures: ProcedureInterface[]
     patients: PatientInterface[]
-    onGetPatients: (procedures: PatientInterface[]) => void
     onGetProcedures: (procedures: ProcedureInterface[]) => void
     onAddProcedure: (procedures: ProcedureInterface[]) => void
     onUpdateProcedure: (procedures: ProcedureInterface[]) => void
@@ -38,7 +37,6 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
             currentProcedureData: {} as ProcedureInterface,
         }
         this.getProcedures()
-        this.getPatients()
     }
 
     handleSaveAndHideModal(
@@ -92,11 +90,6 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
     getProcedures() {
         //todo: *** here should be request
         this.props.onGetProcedures(ProceduresList)
-    }
-
-    getPatients() {
-        //todo: *** here should be request
-        this.props.onGetPatients(PatientsList)
     }
 
     render() {
@@ -197,9 +190,6 @@ export default connect(
         }
     },
     (dispatch) => ({
-        onGetPatients: (patients: PatientInterface[]) => {
-            dispatch({ type: patientsActions.GET_PATIENTS, patients })
-        },
         onGetProcedures: (procedures: ProcedureInterface[]) => {
             dispatch({ type: proceduresActions.GET_PROCEDURES, procedures })
         },

@@ -12,28 +12,26 @@ import PatientInterface from '../../interfaces/PatientInterface'
 
 import { PatientsList } from '../../mock/PatientsMock'
 
-interface PatientsProps {
+interface PropsPatients {
     patients: PatientInterface[]
-    onGetPatients: (patients: PatientInterface[]) => void
     onAddPatient: (patients: PatientInterface[]) => void
     onUpdatePatient: (patients: PatientInterface[]) => void
     onDeletePatient: (patients: PatientInterface[]) => void
 }
-interface PatientsState {
+interface StatePatients {
     emptyPlaceholder: string
     showModal: boolean
     currentPatientData: PatientInterface
 }
 
-class Patients extends React.Component<PatientsProps, PatientsState> {
-    constructor(props: PatientsProps) {
+class Patients extends React.Component<PropsPatients, StatePatients> {
+    constructor(props: PropsPatients) {
         super(props)
         this.state = {
             emptyPlaceholder: 'No patients.',
             showModal: false,
             currentPatientData: {} as PatientInterface,
         }
-        this.getPatients()
     }
 
     handleSaveAndHideModal(
@@ -82,11 +80,6 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
     handleDeletePatient(event: any, patient: PatientInterface) {
         event.stopPropagation()
         this.props.onDeletePatient([patient])
-    }
-
-    getPatients() {
-        //todo: *** here should be request
-        this.props.onGetPatients(PatientsList)
     }
 
     render() {
@@ -181,9 +174,6 @@ export default connect(
         return { patients: storeGlobal.patients }
     },
     (dispatch) => ({
-        onGetPatients: (patients: PatientInterface[]) => {
-            dispatch({ type: patientsActions.GET_PATIENTS, patients })
-        },
         onAddPatient: (patients: PatientInterface[]) => {
             dispatch({ type: patientsActions.ADD_PATIENT, patients })
         },
