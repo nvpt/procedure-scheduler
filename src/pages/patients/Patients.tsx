@@ -177,7 +177,6 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
 }
 
 export default connect(
-    //todo: *** should define type
     (storeGlobal: any) => {
         return { patients: storeGlobal.patients }
     },
