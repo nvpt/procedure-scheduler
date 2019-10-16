@@ -230,7 +230,7 @@ export default class ProcedureModal extends React.Component<
                                 type='date'
                                 name='Planned Start Time'
                                 placeholder='Planned Start Time'
-                                value={'this.state.formData.PlannedStartTime'}
+                                value={this.state.formData.PlannedStartTime}
                                 onChange={(event: any) => {
                                     this.handleChangeOption(
                                         event,
