@@ -1,65 +1,126 @@
 import React from 'react'
 import cn from './procedures.module.css'
 import { Table } from 'react-bootstrap'
-import { ProceduresList } from '../../mock/ProceduresMock'
 import TopPanel from '../../shared/top-panel/TopPanel'
-import ProcedureInterface from '../../interfaces/ProcedureInterface'
 import ProcedureModal from './coponents/procedure-modal/ProcedureModal'
+import { ProceduresList } from '../../mock/ProceduresMock'
+import { connect } from 'react-redux'
+import ProcedureInterface from '../../interfaces/ProcedureInterface'
+import { proceduresActions } from '../../store-global/reducers/ProceduresReducer'
 
-interface ProceduresProps {}
-interface ProceduresState {
+interface ProceduresProps {
     procedures: ProcedureInterface[]
+    onGetProcedures: (procedures: ProcedureInterface[]) => void
+    onAddProcedure: (procedures: ProcedureInterface[]) => void
+    onUpdateProcedure: (procedures: ProcedureInterface[]) => void
+    onDeleteProcedure: (procedures: ProcedureInterface[]) => void
+}
+interface ProceduresState {
     emptyPlaceholder: string
     showModal: boolean
+    currentProcedureData: ProcedureInterface
 }
-export default class Procedures extends React.Component<
+class Procedures extends React.Component<
     ProceduresProps,
     ProceduresState
 > {
-    state = {
-        procedures: ProceduresList,
-        emptyPlaceholder: 'No procedures.',
-        showModal: false,
+    constructor(props: ProceduresProps) {
+        super(props)
+        this.state = {
+            emptyPlaceholder: 'No procedures.',
+            showModal: false,
+            currentProcedureData: {} as ProcedureInterface,
+        }
+        this.getProcedures()
     }
 
-    handleShowHideModal(status: boolean = false) {
+    handleSaveAndHideModal(
+        status: boolean = false,
+        currentProcedureData: ProcedureInterface = {} as ProcedureInterface,
+    ) {
+        if (this._procedureIsExist(currentProcedureData)) {
+            this.props.onUpdateProcedure([currentProcedureData])
+        } else {
+            this.props.onAddProcedure([currentProcedureData])
+        }
+        this.setState({
+            showModal: status,
+            currentProcedureData: {} as ProcedureInterface,
+        })
+    }
+
+    handleShowModal(
+        status: boolean = false,
+        procedure: ProcedureInterface = {} as ProcedureInterface,
+    ) {
+        if (procedure && Object.keys(procedure).length) {
+            this.setState({
+                currentProcedureData: Object.assign(
+                    this.state.currentProcedureData,
+                    procedure,
+                ),
+            })
+        } else {
+            this.setState({
+                currentProcedureData: {} as ProcedureInterface,
+            })
+        }
+
         this.setState({
             showModal: status,
         })
     }
 
-    render() {
-        const { procedures, emptyPlaceholder, showModal } = this.state
+    handleCloseModal() {
+        this.setState({
+            showModal: false,
+        })
+    }
 
-        if (procedures && procedures.length) {
-            return (
-                <div className={cn.procedures}>
-                    <TopPanel
-                        title={'Procedures'}
-                        buttonLabel={'Procedure'}
-                        onAction={() => {
-                            this.handleShowHideModal(true)
-                        }}
-                    />
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Patient</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Planned Start Time</th>
-                                <th>Estimated End Time</th>
-                            </tr>
-                        </thead>
+    handleDeleteProcedure(event: any, procedure: ProcedureInterface) {
+        event.stopPropagation()
+        this.props.onDeleteProcedure([procedure])
+    }
+
+    getProcedures() {
+        //todo: *** here should be request
+        this.props.onGetProcedures(ProceduresList)
+    }
+
+    render() {
+        const { emptyPlaceholder, showModal, currentProcedureData } = this.state
+        const { procedures } = this.props
+
+        return (
+            <div className={cn.procedures}>
+                <TopPanel
+                    title={'Procedures'}
+                    buttonLabel={'Procedure'}
+                    onAction={() => {
+                        this.handleShowModal(true)
+                    }}
+                />
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Procedure</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                            <th>Planned Start Time</th>
+                            <th>Estimated End Time</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    {procedures && procedures.length ? (
                         <tbody>
-                            {procedures.map((procedure) => {
+                            {procedures.map((procedure, i) => {
                                 return (
                                     <tr
-                                        key={procedure.Id}
+                                        key={i}
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => {
-                                            this.handleShowHideModal(true)
+                                            this.handleShowModal(true)
                                         }}>
                                         <td>{procedure.Id}</td>
                                         <td>{procedure.Patient}</td>
@@ -67,21 +128,70 @@ export default class Procedures extends React.Component<
                                         <td>{procedure.Status}</td>
                                         <td>{procedure.PlannedStartTime}</td>
                                         <td>{procedure.EstimatedEndTime}</td>
+                                        <td
+                                            className={cn.delete}
+                                            onClick={(event) => {
+                                                this.handleDeleteProcedure(
+                                                    event,
+                                                    procedure,
+                                                )
+                                            }}>
+                                            x
+                                        </td>
                                     </tr>
                                 )
                             })}
                         </tbody>
-                    </Table>
+                    ) : (
+                        <tbody>
+                            <tr>
+                                <td colSpan={7}>{emptyPlaceholder}</td>
+                            </tr>
+                        </tbody>
+                    )}
+                </Table>
+                {this.state.showModal ? (
                     <ProcedureModal
                         show={showModal}
-                        setOnHideShow={() => {
-                            this.handleShowHideModal()
+                        procedureData={currentProcedureData}
+                        closeModal={() => {
+                            this.handleCloseModal()
+                        }}
+                        saveAndHide={(showModal, currentProcedureData) => {
+                            this.handleSaveAndHideModal(
+                                showModal,
+                                currentProcedureData,
+                            )
                         }}
                     />
-                </div>
-            )
-        } else {
-            return <div className={cn.procedures}>{emptyPlaceholder}</div>
-        }
+                ) : null}
+            </div>
+        )
+    }
+    _procedureIsExist(checkedProcedure: ProcedureInterface) {
+        return this.props.procedures.some(
+            (procedure: ProcedureInterface) =>
+                procedure.Id === checkedProcedure.Id,
+        )
     }
 }
+
+export default connect(
+    (storeGlobal: any) => {
+        return { procedures: storeGlobal.procedures }
+    },
+    (dispatch) => ({
+        onGetProcedures: (procedures: ProcedureInterface[]) => {
+            dispatch({ type: proceduresActions.GET_PROCEDURES, procedures })
+        },
+        onAddProcedure: (procedures: ProcedureInterface[]) => {
+            dispatch({ type: proceduresActions.ADD_PROCEDURE, procedures })
+        },
+        onUpdateProcedure: (procedures: ProcedureInterface[]) => {
+            dispatch({ type: proceduresActions.UPDATE_PROCEDURE, procedures })
+        },
+        onDeleteProcedure: (procedures: ProcedureInterface[]) => {
+            dispatch({ type: proceduresActions.DELETE_PROCEDURE, procedures })
+        },
+    }),
+)(Procedures)
