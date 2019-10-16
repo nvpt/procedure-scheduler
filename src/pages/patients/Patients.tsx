@@ -31,7 +31,10 @@ export default class Patients extends React.Component<
     ) {
         this.setState({
             showModal: status,
-            currentPatientData: Object.assign(this.state.currentPatientData, currentPatientData),
+            currentPatientData: Object.assign(
+                this.state.currentPatientData,
+                currentPatientData,
+            ),
         })
     }
 
@@ -39,7 +42,7 @@ export default class Patients extends React.Component<
         status: boolean = false,
         patient: PatientInterface = {} as PatientInterface,
     ) {
-        if(patient && Object.keys(patient).length) {
+        if (patient && Object.keys(patient).length) {
             this.setState({
                 currentPatientData: { ...patient },
             })
@@ -61,7 +64,12 @@ export default class Patients extends React.Component<
     }
 
     render() {
-        const { patients, emptyPlaceholder, showModal, currentPatientData } = this.state
+        const {
+            patients,
+            emptyPlaceholder,
+            showModal,
+            currentPatientData,
+        } = this.state
 
         if (patients && patients.length) {
             return (
@@ -85,9 +93,12 @@ export default class Patients extends React.Component<
                         <tbody>
                             {patients.map((patient, i) => {
                                 return (
-                                    <tr key={i}
+                                    <tr
+                                        key={i}
                                         style={{ cursor: 'pointer' }}
-                                        onClick={()=>{this.handleShowModal(true, patient)}}>
+                                        onClick={() => {
+                                            this.handleShowModal(true, patient)
+                                        }}>
                                         <td>{patient.Id}</td>
                                         <td>{patient.Name}</td>
                                         <td>{patient.Sex}</td>
@@ -98,7 +109,8 @@ export default class Patients extends React.Component<
                         </tbody>
                     </Table>
                     <div>{this.state.currentPatientData.Name}</div>
-                    <div hidden={!showModal}>
+
+                    {this.state.showModal ? (
                         <AddPatientModal
                             show={showModal}
                             patientData={currentPatientData}
@@ -106,11 +118,13 @@ export default class Patients extends React.Component<
                                 this.handleCloseModal()
                             }}
                             saveAndHide={(showModal, currentPatientData) => {
-                                this.handleSaveAndHideModal(showModal, currentPatientData)
+                                this.handleSaveAndHideModal(
+                                    showModal,
+                                    currentPatientData,
+                                )
                             }}
                         />
-                    </div>
-
+                    ) : null}
                 </div>
             )
         } else {
