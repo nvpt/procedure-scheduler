@@ -8,7 +8,7 @@ export const ProceduresList: ProcedureInterface[] = [
         Patient: PatientsList[0].Name,
         Description: 'The conduct of radiation imaging of the femur',
         Status: 'Planned',
-        PlannedStartTime: '16.10.2019',
+        PlannedStartTime: '2019-10-16',
         EstimatedEndTime: '30 min',
     },
     {
@@ -17,7 +17,7 @@ export const ProceduresList: ProcedureInterface[] = [
         Description:
             'Electrophoresis and massage treatments of the cervical spine',
         Status: 'In Progress',
-        PlannedStartTime: '08.10.2019',
+        PlannedStartTime: '2019-10-08',
         EstimatedEndTime: '1 hour',
     },
 ]
