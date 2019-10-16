@@ -3,17 +3,22 @@ import { Table } from 'react-bootstrap'
 
 import { connect } from 'react-redux'
 import { proceduresActions } from '../../store-global/reducers/ProceduresReducer'
+import { patientsActions } from '../../store-global/reducers/PatientsReducer'
 
 import cn from './procedures.module.css'
+
 import TopPanel from '../../shared/top-panel/TopPanel'
-
 import ProcedureModal from './coponents/procedure-modal/ProcedureModal'
-import ProcedureInterface from '../../interfaces/ProcedureInterface'
-import { ProceduresList } from '../../mock/ProceduresMock'
 
+import ProcedureInterface from '../../interfaces/ProcedureInterface'
+import PatientInterface from '../../interfaces/PatientInterface'
+import { ProceduresList } from '../../mock/ProceduresMock'
+import { PatientsList } from '../../mock/PatientsMock'
 
 interface ProceduresProps {
     procedures: ProcedureInterface[]
+    patients: PatientInterface[]
+    onGetPatients: (procedures: PatientInterface[]) => void
     onGetProcedures: (procedures: ProcedureInterface[]) => void
     onAddProcedure: (procedures: ProcedureInterface[]) => void
     onUpdateProcedure: (procedures: ProcedureInterface[]) => void
@@ -24,10 +29,7 @@ interface ProceduresState {
     showModal: boolean
     currentProcedureData: ProcedureInterface
 }
-class Procedures extends React.Component<
-    ProceduresProps,
-    ProceduresState
-> {
+class Procedures extends React.Component<ProceduresProps, ProceduresState> {
     constructor(props: ProceduresProps) {
         super(props)
         this.state = {
@@ -36,6 +38,7 @@ class Procedures extends React.Component<
             currentProcedureData: {} as ProcedureInterface,
         }
         this.getProcedures()
+        this.getPatients()
     }
 
     handleSaveAndHideModal(
@@ -91,6 +94,11 @@ class Procedures extends React.Component<
         this.props.onGetProcedures(ProceduresList)
     }
 
+    getPatients() {
+        //todo: *** here should be request
+        this.props.onGetPatients(PatientsList)
+    }
+
     render() {
         const { emptyPlaceholder, showModal, currentProcedureData } = this.state
         const { procedures } = this.props
@@ -124,7 +132,7 @@ class Procedures extends React.Component<
                                         key={i}
                                         style={{ cursor: 'pointer' }}
                                         onClick={() => {
-                                            this.handleShowModal(true)
+                                            this.handleShowModal(true, procedure)
                                         }}>
                                         <td>{procedure.Id}</td>
                                         <td>{procedure.Patient}</td>
@@ -182,9 +190,16 @@ class Procedures extends React.Component<
 
 export default connect(
     (storeGlobal: any) => {
-        return { procedures: storeGlobal.procedures }
+        console.log('Procedures.tsx__ >>> storeGlobal: ', storeGlobal)
+        return {
+            procedures: storeGlobal.procedures,
+            patients: storeGlobal.patients,
+        }
     },
     (dispatch) => ({
+        onGetPatients: (patients: PatientInterface[]) => {
+            dispatch({ type: patientsActions.GET_PATIENTS, patients })
+        },
         onGetProcedures: (procedures: ProcedureInterface[]) => {
             dispatch({ type: proceduresActions.GET_PROCEDURES, procedures })
         },
