@@ -5,6 +5,6 @@ export default class Footer extends React.Component {
     state = {}
 
     render() {
-        return <div className={cn.footer}>©&nbsp;2019&nbsp;<strong>3Z+</strong></div>
+        return <div className={cn.footer}>©&nbsp;2019&nbsp;&nbsp;<strong>3Z+</strong></div>
     }
 }

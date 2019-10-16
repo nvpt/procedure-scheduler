@@ -1,5 +1,5 @@
 import React from 'react'
-import cn from './add-patient-modal.module.css'
+import cn from './patient-modal.module.css'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
@@ -17,7 +17,7 @@ interface StateAddPatients {
     formData: PatientInterface
 }
 
-export default class AddPatientModal extends React.Component<
+export default class PatientModal extends React.Component<
     PropsAddPatients,
     StateAddPatients
 > {

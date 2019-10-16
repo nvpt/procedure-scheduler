@@ -7,7 +7,7 @@ import { patientsActions } from '../../store-global/reducers/PatientsReducer'
 import cn from './patients.module.css'
 
 import TopPanel from '../../shared/top-panel/TopPanel'
-import AddPatientModal from './coponents/add-patient-modal/AddPatientModal'
+import PatientModal from './coponents/patient-modal/PatientModal'
 import PatientInterface from '../../interfaces/PatientInterface'
 
 import { PatientsList } from '../../mock/PatientsMock'
@@ -151,7 +151,7 @@ class Patients extends React.Component<PatientsProps, PatientsState> {
                 </Table>
 
                 {this.state.showModal ? (
-                    <AddPatientModal
+                    <PatientModal
                         show={showModal}
                         patientData={currentPatientData}
                         closeModal={() => {
