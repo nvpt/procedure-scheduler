@@ -10,8 +10,6 @@ import TopPanel from '../../shared/top-panel/TopPanel'
 import PatientModal from './coponents/patient-modal/PatientModal'
 import PatientInterface from '../../interfaces/PatientInterface'
 
-import { PatientsList } from '../../mock/PatientsMock'
-
 interface PropsPatients {
     patients: PatientInterface[]
     onAddPatient: (patients: PatientInterface[]) => void
@@ -112,7 +110,6 @@ class Patients extends React.Component<PropsPatients, StatePatients> {
                                 return (
                                     <tr
                                         key={i}
-                                        style={{ cursor: 'pointer' }}
                                         onClick={() => {
                                             this.handleShowModal(true, patient)
                                         }}>

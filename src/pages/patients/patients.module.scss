@@ -4,14 +4,10 @@
     @extend .table-padding;
 }
 
-.delete {
-    padding: 10px;
-    text-align: center;
-    font-weight: 500;
+.tr {
     cursor: pointer;
+}
 
-    &:hover {
-        color: $content-light-color;
-        background: $components-bg-color;
-    }
+.delete {
+    @extend .delete-cell;
 }

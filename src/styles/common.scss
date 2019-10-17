@@ -5,6 +5,18 @@
     padding-top: 30px;
 }
 
+.delete-cell {
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+        color: $content-light-color;
+        background: $components-bg-color;
+    }
+}
+
 
 /*bootstrap overriding*/
 th {
