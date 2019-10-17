@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["../../../../variables.scss","dideMenuList.module.scss"],"names":[],"mappings":"AAIA;AAMA;ACRA;EACI;EACA;EACA;;;AAGJ;EACI","file":"dideMenuList.module.css"}
+{"version":3,"sourceRoot":"","sources":["../../../../styles/variables.scss","dideMenuList.module.scss"],"names":[],"mappings":"AAGA;AAMA;ACPA;EACI;EACA;EACA;;;AAGJ;EACI","file":"dideMenuList.module.css"}

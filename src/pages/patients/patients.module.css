@@ -11,14 +11,14 @@ th {
 }
 
 .delete {
-  text-align: center;
-  cursor: pointer;
   padding: 10px;
+  text-align: center;
   font-weight: 500;
+  cursor: pointer;
 }
 .delete:hover {
-  background: #1b4782;
   color: #fbffff;
+  background: #1b4782;
 }
 
 /*# sourceMappingURL=patients.module.css.map */

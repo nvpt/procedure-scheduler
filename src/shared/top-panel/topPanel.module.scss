@@ -1,5 +1,4 @@
-@import "../../variables";
-@import "../../common";
+@import "../../styles/variables";
 
 .topPanel {
     display: flex;
@@ -10,8 +9,8 @@
 }
 
 .title {
-    font-size: 24px;
     margin-bottom: 0;
+    font-size: 24px;
 }
 
 .panelContentWrap {

@@ -8,8 +8,8 @@
     display: inline-block;
     padding-right: 10px;
     cursor: pointer;
-}
 
-.item:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
+    }
 }

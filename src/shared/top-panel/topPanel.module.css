@@ -1,17 +1,5 @@
 /*bg*/
 /*components*/
-/*bg*/
-/*components*/
-/*global styles*/
-.table-padding {
-  padding-top: 30px;
-}
-
-/*bootstrap overriding*/
-th {
-  vertical-align: top !important;
-}
-
 .topPanel {
   display: flex;
   align-items: center;
@@ -21,8 +9,8 @@ th {
 }
 
 .title {
-  font-size: 24px;
   margin-bottom: 0;
+  font-size: 24px;
 }
 
 .panelContentWrap {

@@ -5,13 +5,13 @@
 }
 
 .delete {
-    text-align: center;
-    cursor: pointer;
     padding: 10px;
+    text-align: center;
     font-weight: 500;
+    cursor: pointer;
 
     &:hover {
-        background: $components-bg-color;
         color: $content-light-color;
+        background: $components-bg-color;
     }
 }

@@ -5,13 +5,12 @@
 }
 
 .link {
-    border: 1px solid transparent;
-
     display: inline-block;
     width: 100%;
     height: 100%;
     padding: 8px 14px;
     text-decoration: none;
+    border: 1px solid transparent;
     color: unset;
 
     &:hover {
@@ -23,10 +22,10 @@
 }
 
 .linkActive {
-    cursor: pointer;
     color: $content-light-color;
     background: $action-bg-color;
     border: 1px solid $content-light-color;
     border-radius: 4px;
     box-shadow: 1px 1px 18px 0 rgba($additional-dark-bg-color, 0.3);
+    cursor: pointer;
 }
