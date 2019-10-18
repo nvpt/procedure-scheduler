@@ -204,7 +204,7 @@ export default class ProcedureModal extends React.Component<
                                     Field is required
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            {/*END PATIENT*/}
+                            {/*END: PATIENT*/}
                             {/*DESCRIPTION*/}
                             <Form.Group controlId='Description'>
                                 <Form.Label column={false}>
@@ -234,10 +234,10 @@ export default class ProcedureModal extends React.Component<
                                     Field is required
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            {/*END DESCRIPTION*/}
+                            {/*END: DESCRIPTION*/}
                             {/*STATUS*/}
                             <Form.Group controlId='Status'>
-                                <Form.Label column={false}>Status</Form.Label>
+                                <Form.Label column={false}>Status*</Form.Label>
                                 <DropdownButton
                                     id='Status'
                                     variant={
@@ -267,7 +267,7 @@ export default class ProcedureModal extends React.Component<
                                     })}
                                 </DropdownButton>
                             </Form.Group>
-                            {/*STATUS*/}
+                            {/*END: STATUS*/}
                             {/*DATE*/}
                             <Form.Group controlId='DateOfProcedure'>
                                 <Form.Label column={false}>Date*</Form.Label>
@@ -300,7 +300,7 @@ export default class ProcedureModal extends React.Component<
                                     Field is required
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            {/*END DATE*/}
+                            {/*END: DATE*/}
                             {/*START TIME*/}
                             <Form.Group controlId='StartTimeOfProcedure'>
                                 <Form.Label column={false}>
@@ -325,7 +325,7 @@ export default class ProcedureModal extends React.Component<
                                     Field is required
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            {/*END START TIME*/}
+                            {/*END: START TIME*/}
                             {/*END TIME*/}
                             <Form.Group controlId='EndTimeOfProcedure'>
                                 <Form.Label column={false}>
@@ -346,7 +346,8 @@ export default class ProcedureModal extends React.Component<
                                     }}
                                 />
                             </Form.Group>
-                            {/*END END TIME*/}
+                            {/*END: END TIME*/}
+                            <Form.Text className={['text-muted', cn.required].join(' ')}>* - required fields</Form.Text>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant='secondary' onClick={handleClose}>

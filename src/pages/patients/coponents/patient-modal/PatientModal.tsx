@@ -112,7 +112,8 @@ export default class PatientModal extends React.Component<
                         <Modal.Title>{modalTitle}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form.Group controlId='formName'>
+                        {/*NAME*/}
+                        <Form.Group controlId='FormName'>
                             <Form.Label column={false}>Name*</Form.Label>
                             <Form.Control
                                 type='text'
@@ -128,7 +129,9 @@ export default class PatientModal extends React.Component<
                                 Field is required
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId='formDayOfBirth'>
+                        {/*END: NAME*/}
+                        {/*DAY OF BIRTH*/}
+                        <Form.Group controlId='FormDayOfBirth'>
                             <Form.Label column={false}>Day of Birth*</Form.Label>
                             <Form.Control
                                 type='text'
@@ -147,7 +150,9 @@ export default class PatientModal extends React.Component<
                                 Field is required
                             </Form.Control.Feedback>
                         </Form.Group>
-                        <Form.Group controlId='formSex'>
+                        {/*END: DAY OF BIRTH*/}
+                        {/*SEX*/}
+                        <Form.Group controlId='FormSex'>
                             <Form.Label column={false}>Sex*</Form.Label>
                             <Form.Check
                                 type='radio'
@@ -184,6 +189,7 @@ export default class PatientModal extends React.Component<
                             />
                             <Form.Text className={['text-muted', cn.required].join(' ')}>* - required fields</Form.Text>
                         </Form.Group>
+                        {/*END: SEX*/}
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant='secondary' onClick={handleClose}>
