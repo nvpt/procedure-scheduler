@@ -122,8 +122,8 @@ export default class PatientModal extends React.Component<
                             <Form.Label column={false}>Name</Form.Label>
                             <Form.Control
                                 type='text'
-                                placeholder='Enter Name'
                                 required
+                                placeholder='Enter the Name'
                                 value={this.state.formData.Name}
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'Name')
@@ -137,17 +137,21 @@ export default class PatientModal extends React.Component<
                         <Form.Group controlId='formDayOfBirth'>
                             <Form.Label column={false}>Day of Birth</Form.Label>
                             <Form.Control
-                                type='date'
-                                name='Day of Birth'
-                                placeholder='Day of Birth'
-                                value={this.state.formData.DayOfBirth}
+                                type='text'
+                                required
+                                onFocus={(event:any)=>{event.target.type='date'}}
+                                onBlur={(event:any):void=>{
+                                    if(!event.target.value) event.target.type='text'}}
+                                placeholder='Enter the Day of Birth'
+                                value={this.state.formData.DayOfBirth ? this.state.formData.DayOfBirth : ''}
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'DayOfBirth')
                                 }}
                             />
-                            <Form.Text className='text-muted'>
+                            <Form.Control.Feedback
+                                type={'invalid'}>
                                 Field is required
-                            </Form.Text>
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId='formSex'>
                             <Form.Label column={false}>Sex</Form.Label>
