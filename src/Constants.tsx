@@ -22,3 +22,9 @@ export const MENU: { [key: string]: MenuItemInterface } = {
         LABEL: 'Rooms',
     },
 }
+
+export const WORK_TIME = {
+    MIN: "9:00",
+    MAX: "20:00"
+}
+

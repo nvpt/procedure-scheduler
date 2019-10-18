@@ -9,6 +9,7 @@ import ProcedureInterface, {
 } from '../../../../interfaces/ProcedureInterface'
 import Form from 'react-bootstrap/Form'
 import PatientInterface from '../../../../interfaces/PatientInterface'
+import { WORK_TIME } from '../../../../Constants'
 
 type optionName =
     | 'Patient'
@@ -19,8 +20,6 @@ type optionName =
     | 'EstimatedEndTime' // according to ProcedureInterface keys
 
 const STATUSES: statusType[] = ['Planned', 'In Progress', 'Finished']
-const MIN_TIME='9:00';
-const MAX_TIME='20:00';
 
 interface AddProceduresProps {
     show: boolean
@@ -107,7 +106,6 @@ export default class ProcedureModal extends React.Component<
     render() {
         const { modalTitle, validated, formData } = this.state
         const { show, saveAndHide, closeModal, patients } = this.props
-console.log('ProcedureModal.tsx__render >>> form: ', formData);
 
         const handleSave = () => {
             // const formData = this.state.formData
@@ -165,28 +163,42 @@ console.log('ProcedureModal.tsx__render >>> form: ', formData);
                                             event.target.value,
                                         )
                                     }}>
-                                    <option>{formData.Patient ? formData.Patient : ''}</option>
-                                    {formData.Patient ?
-                                        patients.filter(patient=>patient.Name !== formData.Patient).map(
-                                            (patient: PatientInterface, i) => {
-                                                return (
-                                                    <option key={i}>
-                                                        {patient.Name}
-                                                    </option>
-                                                )
-                                            },
-                                        )
-                                        :
-                                        patients.map(
-                                        (patient: PatientInterface, i) => {
-                                            return (
-                                                <option key={i}>
-                                                    {patient.Name}
-                                                </option>
-                                            )
-                                        },
-                                    )
-                                    }
+                                    <option>
+                                        {formData.Patient
+                                            ? formData.Patient
+                                            : ''}
+                                    </option>
+                                    {formData.Patient
+                                        ? patients
+                                              .filter(
+                                                  (patient) =>
+                                                      patient.Name !==
+                                                      formData.Patient,
+                                              )
+                                              .map(
+                                                  (
+                                                      patient: PatientInterface,
+                                                      i,
+                                                  ) => {
+                                                      return (
+                                                          <option key={i}>
+                                                              {patient.Name}
+                                                          </option>
+                                                      )
+                                                  },
+                                              )
+                                        : patients.map(
+                                              (
+                                                  patient: PatientInterface,
+                                                  i,
+                                              ) => {
+                                                  return (
+                                                      <option key={i}>
+                                                          {patient.Name}
+                                                      </option>
+                                                  )
+                                              },
+                                          )}
                                 </Form.Control>
                                 <Form.Control.Feedback type={'invalid'}>
                                     Field is required
@@ -296,8 +308,8 @@ console.log('ProcedureModal.tsx__render >>> form: ', formData);
                                 <Form.Control
                                     type={'time'}
                                     name={'time'}
-                                    min={MIN_TIME}
-                                    max={MAX_TIME}
+                                    min={WORK_TIME.MIN}
+                                    max={WORK_TIME.MAX}
                                     required
                                     value={this.state.formData.PlannedStartTime}
                                     onChange={(event: any) => {
@@ -320,9 +332,8 @@ console.log('ProcedureModal.tsx__render >>> form: ', formData);
                                 <Form.Control
                                     type={'time'}
                                     name={'time'}
-                                    min={MIN_TIME}
-                                    max={MAX_TIME}
-                                    required
+                                    min={WORK_TIME.MIN}
+                                    max={WORK_TIME.MAX}
                                     value={this.state.formData.EstimatedEndTime}
                                     onChange={(event: any) => {
                                         this.handleChangeOption(

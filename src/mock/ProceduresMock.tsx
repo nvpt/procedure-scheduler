@@ -9,8 +9,8 @@ export const ProceduresList: ProcedureInterface[] = [
         Description: 'The conduct of radiation imaging of the femur',
         Status: 'Planned',
         DateOfProcedure:'2019-10-16',
-        PlannedStartTime: '9:20',
-        EstimatedEndTime: '10:10',
+        PlannedStartTime: '11:20',
+        EstimatedEndTime: '12:10',
     },
     {
         Id: 2,
@@ -19,7 +19,7 @@ export const ProceduresList: ProcedureInterface[] = [
             'Electrophoresis and massage treatments of the cervical spine',
         Status: 'In Progress',
         DateOfProcedure:'2019-15-16',
-        PlannedStartTime: '7:30',
-        EstimatedEndTime: '18:00',
+        PlannedStartTime: '16:10',
+        EstimatedEndTime: '16:30',
     },
 ]
