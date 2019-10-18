@@ -273,7 +273,8 @@ export default class ProcedureModal extends React.Component<
                                 <Form.Label column={false}>Date*</Form.Label>
                                 <Form.Control
                                     type='text'
-                                    required
+                                    required={formData.Status !== 'Finished'}
+                                    disabled={formData.Status === 'Finished'}
                                     onFocus={(event: any) => {
                                         event.target.type = 'date'
                                     }}
@@ -308,9 +309,10 @@ export default class ProcedureModal extends React.Component<
                                 <Form.Control
                                     type={'time'}
                                     name={'time'}
+                                    required={formData.Status !== 'Finished'}
+                                    disabled={formData.Status === 'Finished'}
                                     min={WORK_TIME.MIN}
                                     max={WORK_TIME.MAX}
-                                    required
                                     value={this.state.formData.PlannedStartTime}
                                     onChange={(event: any) => {
                                         this.handleChangeOption(
@@ -332,6 +334,7 @@ export default class ProcedureModal extends React.Component<
                                 <Form.Control
                                     type={'time'}
                                     name={'time'}
+                                    disabled={formData.Status === 'Finished'}
                                     min={WORK_TIME.MIN}
                                     max={WORK_TIME.MAX}
                                     value={this.state.formData.EstimatedEndTime}
