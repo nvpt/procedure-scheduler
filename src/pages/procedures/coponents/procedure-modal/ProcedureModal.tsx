@@ -29,6 +29,7 @@ interface AddProceduresProps {
 interface AddProceduresState {
     modalTitle: string
     formData: ProcedureInterface
+    validated: boolean
 }
 
 export default class ProcedureModal extends React.Component<
@@ -45,6 +46,7 @@ export default class ProcedureModal extends React.Component<
             PlannedStartTime: '',
             EstimatedEndTime: '',
         } as ProcedureInterface,
+        validated: false,
     }
 
     handleChangeOption(event: any, optionName: optionName) {
@@ -53,9 +55,9 @@ export default class ProcedureModal extends React.Component<
         this.setState({ formData })
     }
 
-    handleChangePatient(patient: PatientInterface) {
+    handleChangePatient(patientName: string) {
         const formData = { ...this.state.formData }
-        formData.Patient = patient.Name
+        formData.Patient = patientName
         this.setState({ formData })
     }
 
@@ -98,11 +100,11 @@ export default class ProcedureModal extends React.Component<
     }
 
     render() {
-        const { modalTitle } = this.state
+        const { modalTitle, validated, formData } = this.state
         const { show, saveAndHide, closeModal } = this.props
 
         const handleSave = () => {
-            const formData = this.state.formData
+            // const formData = this.state.formData
             formData.Id =
                 formData.Id && formData.Id !== 0
                     ? formData.Id
@@ -116,146 +118,170 @@ export default class ProcedureModal extends React.Component<
             this.resetForm()
         }
 
+        const handleSubmit = (event: any) => {
+            console.log(
+                'ProcedureModal.tsx__handleSubmit >>> formData: ',
+                formData,
+            )
+
+            this.setState({ validated: true })
+            const form = event.currentTarget
+            const isValid = form.checkValidity()
+            if (isValid) {
+                handleSave()
+            } else {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+        }
+
         return (
             <div>
                 <Modal show={show} onHide={handleClose} animation={true}>
-                    <form
-                        onSubmit={(event) => {
-                            event.preventDefault()
-                            handleSave()
-                        }}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>{modalTitle}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Form.Group controlId='patient'>
-                            <Form.Label column={false}>Patient</Form.Label>
-                            <DropdownButton
-                                id='dropdown-basic-button'
-                                title={
-                                    this.state.formData.Patient
-                                        ? this.state.formData.Patient
-                                        : 'Select Patient'
-                                }>
-                                {this.props.patients.map(
-                                    (patient: PatientInterface, i) => {
+                    <Form
+                        className={validated ? 'was-validated' : ''}
+                        noValidate
+                        onSubmit={handleSubmit}
+                        validated={validated}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{modalTitle}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <Form.Group controlId='patient'>
+                                <Form.Label column={false}>Patient</Form.Label>
+                                <Form.Control
+                                    as='select'
+                                    type={'text'}
+                                    isInvalid={validated && !formData.Patient}
+                                    onChange={(event:any) => {
+                                        this.handleChangePatient(
+                                            event.target.value,
+                                        )
+                                    }}
+                                    defaultValue="rrr"
+                                    required>
+                                    <option> </option>
+                                    {this.props.patients.map(
+                                        (patient: PatientInterface, i) => {
+                                            return (
+                                                <option
+                                                    key={i}>
+                                                    {patient.Name}
+                                                </option>
+                                            )
+                                        },
+                                    )}
+                                </Form.Control>
+                                {!formData.Patient && validated ? (
+                                    <Form.Control.Feedback type={'invalid'}>
+                                        Field is required
+                                    </Form.Control.Feedback>
+                                ) : null}
+                            </Form.Group>
+                            <Form.Group controlId='Description'>
+                                <Form.Label column={false}>
+                                    Description
+                                </Form.Label>
+                                <Form.Control
+                                    as='textarea'
+                                    rows='3'
+                                    value={
+                                        this.state.formData.Description
+                                            ? this.state.formData.Description
+                                            : ''
+                                    }
+                                    placeholder={'Enter Description'}
+                                    onChange={(event: any) => {
+                                        this.handleChangeOption(
+                                            event,
+                                            'Description',
+                                        )
+                                    }}
+                                />
+                                <Form.Text className='text-muted'>
+                                    Field is required
+                                </Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId='patient'>
+                                <Form.Label column={false}>Status</Form.Label>
+                                <DropdownButton
+                                    id='Status'
+                                    variant={
+                                        this.state.formData.Status === 'Planned'
+                                            ? 'primary'
+                                            : this.state.formData.Status ===
+                                              'In Progress'
+                                            ? 'success'
+                                            : this.state.formData.Status ===
+                                              'Finished'
+                                            ? 'secondary'
+                                            : 'primary'
+                                    }
+                                    title={this.state.formData.Status}>
+                                    {STATUSES.map((status: statusType, i) => {
                                         return (
                                             <Dropdown.Item
                                                 key={i}
                                                 onClick={() => {
-                                                    this.handleChangePatient(
-                                                        patient,
+                                                    this.handleChangeStatus(
+                                                        status,
                                                     )
                                                 }}>
-                                                {patient.Name}
+                                                {status}
                                             </Dropdown.Item>
                                         )
-                                    },
-                                )}
-                            </DropdownButton>
-                            <Form.Text className='text-muted'>
-                                Field is required
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId='Description'>
-                            <Form.Label column={false}>Description</Form.Label>
-                            <Form.Control
-                                as='textarea'
-                                rows='3'
-                                value={
-                                    this.state.formData.Description
-                                        ? this.state.formData.Description
-                                        : ''
-                                }
-                                placeholder={'Enter Description'}
-                                onChange={(event: any) => {
-                                    this.handleChangeOption(
-                                        event,
-                                        'Description',
-                                    )
-                                }}
-                            />
-                            <Form.Text className='text-muted'>
-                                Field is required
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId='patient'>
-                            <Form.Label column={false}>Status</Form.Label>
-                            <DropdownButton
-                                id='Status'
-                                variant={
-                                    this.state.formData.Status === 'Planned'
-                                        ? 'primary'
-                                        : this.state.formData.Status ===
-                                          'In Progress'
-                                        ? 'success'
-                                        : this.state.formData.Status ===
-                                          'Finished'
-                                        ? 'secondary'
-                                        : 'primary'
-                                }
-                                title={this.state.formData.Status}>
-                                {STATUSES.map((status: statusType, i) => {
-                                    return (
-                                        <Dropdown.Item
-                                            key={i}
-                                            onClick={() => {
-                                                this.handleChangeStatus(status)
-                                            }}>
-                                            {status}
-                                        </Dropdown.Item>
-                                    )
-                                })}
-                            </DropdownButton>
-                        </Form.Group>
+                                    })}
+                                </DropdownButton>
+                            </Form.Group>
 
-                        <Form.Group controlId='formDayOfBirth'>
-                            <Form.Label column={false}>
-                                Planned Start Time
-                            </Form.Label>
-                            <Form.Control
-                                type='date'
-                                name='Planned Start Time'
-                                placeholder='Planned Start Time'
-                                value={this.state.formData.PlannedStartTime}
-                                onChange={(event: any) => {
-                                    this.handleChangeOption(
-                                        event,
-                                        'PlannedStartTime',
-                                    )
-                                }}
-                            />
-                            <Form.Text className='text-muted'>
-                                Field is required
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group controlId='formName'>
-                            <Form.Label column={false}>
-                                Estimated End Time
-                            </Form.Label>
-                            <Form.Control
-                                type='text'
-                                placeholder='e.g. 30m or 1h 20m'
-                                required
-                                value={this.state.formData.EstimatedEndTime}
-                                onChange={(event: any) => {
-                                    this.handleChangeOption(
-                                        event,
-                                        'EstimatedEndTime',
-                                    )
-                                }}
-                            />
-                        </Form.Group>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant='secondary' onClick={handleClose}>
-                            Close
-                        </Button>
-                        <Button variant='primary' onClick={handleSave}>
-                            Save Changes
-                        </Button>
-                    </Modal.Footer>
-                    </form>
+                            <Form.Group controlId='formDayOfBirth'>
+                                <Form.Label column={false}>
+                                    Planned Start Time
+                                </Form.Label>
+                                <Form.Control
+                                    type='date'
+                                    name='Planned Start Time'
+                                    placeholder='Planned Start Time'
+                                    value={this.state.formData.PlannedStartTime}
+                                    onChange={(event: any) => {
+                                        this.handleChangeOption(
+                                            event,
+                                            'PlannedStartTime',
+                                        )
+                                    }}
+                                />
+                                <Form.Text className='text-muted'>
+                                    Field is required
+                                </Form.Text>
+                            </Form.Group>
+                            <Form.Group controlId='formName'>
+                                <Form.Label column={false}>
+                                    Estimated End Time
+                                </Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='e.g. 30m or 1h 20m'
+                                    required
+                                    value={this.state.formData.EstimatedEndTime}
+                                    onChange={(event: any) => {
+                                        this.handleChangeOption(
+                                            event,
+                                            'EstimatedEndTime',
+                                        )
+                                    }}
+                                />
+                            </Form.Group>
+                            <Form.Control as='time'></Form.Control>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant='secondary' onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant='primary' type={'submit'}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Form>
                 </Modal>
             </div>
         )
