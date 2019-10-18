@@ -9,7 +9,7 @@ import Doctors from './pages/doctors/Doctors'
 import Patients from './pages/patients/Patients'
 import Procedures from './pages/procedures/Procedures'
 import Rooms from './pages/rooms/Rooms'
-import Header from './shared/header/Header'
+import { Header } from './shared/header/Header'
 import Footer from './shared/footer/Footer'
 import { SideMenu } from './shared/side-menu/SideMenu'
 import PatientInterface from './interfaces/PatientInterface'
@@ -19,11 +19,23 @@ import { PatientsList } from './mock/PatientsMock'
 interface PropsApp {
     onGetPatients?: (patients: PatientInterface[]) => void
 }
-interface StateApp {}
+interface StateApp {
+    menuIsOpen: boolean
+}
 class App extends React.Component<PropsApp, StateApp> {
     constructor(props: PropsApp) {
         super(props)
+
+        this.state = {
+            menuIsOpen: true,
+        }
         this.getPatients()
+    }
+
+    handleToggleMenu() {
+        this.setState({
+            menuIsOpen: !this.state.menuIsOpen,
+        })
     }
 
     getPatients() {
@@ -36,7 +48,22 @@ class App extends React.Component<PropsApp, StateApp> {
         return (
             <div className={cn.app}>
                 <Router>
-                    <SideMenu />
+                    <div
+                        className={cn.menuButton}
+                        onClick={() => {
+                            this.handleToggleMenu()
+                        }}>
+                        <div className={cn.menuButtonItem} />
+                        <div className={cn.menuButtonItem} />
+                        <div className={cn.menuButtonItem} />
+                    </div>
+                    <div
+                        className={[
+                            cn.sideMenuWrap,
+                            this.state.menuIsOpen ? '' : cn.closeMenu,
+                        ].join(' ')}>
+                        <SideMenu />
+                    </div>
                     <div className={cn.wrapper}>
                         <Header />
                         <div className={cn.container}>

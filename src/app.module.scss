@@ -1,4 +1,4 @@
-@import "styles/variables";
+@import 'styles/variables.scss';
 
 .app {
     position: relative;
@@ -7,6 +7,40 @@
     height: 100%;
     background: $content-light-color;
     color: $content-color;
+}
+
+.sideMenuWrap {
+    display: flex;
+    overflow: hidden;
+    transition: all 1s ease-in-out;
+
+    &.closeMenu {
+        transition: all 1s ease-in-out;
+        width: 0;
+    }
+}
+
+.menuButton {
+    display: block;
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    width: 45px;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 1000;
+
+    &:hover {
+        .menuButtonItem {
+            background: $content-light-color;
+        }
+    }
+}
+.menuButtonItem {
+    width: 100%;
+    height: 2px;
+    background: $action-bg-color;
+    margin-bottom: 7px;
 }
 
 .wrapper {

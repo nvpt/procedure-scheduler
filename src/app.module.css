@@ -10,6 +10,37 @@
   color: #0e376f;
 }
 
+.sideMenuWrap {
+  display: flex;
+  overflow: hidden;
+  transition: all 1s ease-in-out;
+}
+.sideMenuWrap.closeMenu {
+  transition: all 1s ease-in-out;
+  width: 0;
+}
+
+.menuButton {
+  display: block;
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  width: 45px;
+  padding: 6px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.menuButton:hover .menuButtonItem {
+  background: #fbffff;
+}
+
+.menuButtonItem {
+  width: 100%;
+  height: 2px;
+  background: #b7d6ee;
+  margin-bottom: 7px;
+}
+
 .wrapper {
   display: flex;
   flex: 1;

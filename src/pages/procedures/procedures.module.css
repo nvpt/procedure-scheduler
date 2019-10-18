@@ -22,4 +22,8 @@ th {
   vertical-align: top !important;
 }
 
+.delete {
+  min-width: 40px;
+}
+
 /*# sourceMappingURL=procedures.module.css.map */

@@ -6,4 +6,5 @@
 
 .delete {
     @extend .delete-cell;
+    min-width: 40px;
 }
