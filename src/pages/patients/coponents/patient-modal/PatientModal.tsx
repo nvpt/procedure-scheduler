@@ -17,6 +17,7 @@ interface PropsAddPatients {
 interface StateAddPatients {
     modalTitle: string
     formData: PatientInterface
+    validated: boolean
 }
 
 export default class PatientModal extends React.Component<
@@ -31,9 +32,14 @@ export default class PatientModal extends React.Component<
             Sex: null,
             DayOfBirth: '',
         } as PatientInterface,
+        validated: false,
     }
 
     handleChangeOption(event: any, optionName: optionName) {
+        console.log(
+            'PatientModal.tsx__handleChangeOption >>> event: ',
+            event.target,
+        )
         const formData = { ...this.state.formData }
         formData[optionName] = event.target.value
         this.setState({ formData })
@@ -65,7 +71,7 @@ export default class PatientModal extends React.Component<
     }
 
     render() {
-        const { modalTitle } = this.state
+        const { modalTitle, validated } = this.state
         const { show, saveAndHide, closeModal } = this.props
 
         const handleSave = () => {
@@ -83,13 +89,28 @@ export default class PatientModal extends React.Component<
             this.resetForm()
         }
 
+        const handleSubmit = (event: any) => {
+            this.setState({validated: true})
+            const form = event.currentTarget
+            const isValid = form.checkValidity();
+
+            console.log('PatientModal.tsx__handleSubmit >>> isValid: ', isValid);
+            
+            if(isValid){
+                handleSave()
+            } else {
+                event.preventDefault()
+                event.stopPropagation();
+            }
+        }
+
         return (
             <Modal show={show} onHide={handleClose} animation={true}>
-                <form
-                    onSubmit={(event) => {
-                        event.preventDefault()
-                        handleSave()
-                    }}>
+                <Form
+                    className={validated ? 'was-validated' : ''}
+                    noValidate
+                    onSubmit={handleSubmit}
+                    validated={validated}>
                     <Modal.Header closeButton>
                         <Modal.Title>{modalTitle}</Modal.Title>
                     </Modal.Header>
@@ -105,9 +126,10 @@ export default class PatientModal extends React.Component<
                                     this.handleChangeOption(event, 'Name')
                                 }}
                             />
-                            <Form.Text className='text-muted'>
+                            <Form.Control.Feedback
+                                type={'invalid'}>
                                 Field is required
-                            </Form.Text>
+                            </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId='formDayOfBirth'>
                             <Form.Label column={false}>Day of Birth</Form.Label>
@@ -163,11 +185,11 @@ export default class PatientModal extends React.Component<
                         <Button variant='secondary' onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button variant='primary' onClick={handleSave}>
+                        <Button variant='primary' type={'submit'}>
                             Save Changes
                         </Button>
                     </Modal.Footer>
-                </form>
+                </Form>
             </Modal>
         )
     }
