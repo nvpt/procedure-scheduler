@@ -119,6 +119,7 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
                             <th>Patient</th>
                             <th>Description</th>
                             <th>Status</th>
+                            <th>Date of Procedure</th>
                             <th>Planned Start Time</th>
                             <th>Estimated End Time</th>
                             <th> </th>
@@ -138,6 +139,7 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
                                         <td>{procedure.Patient}</td>
                                         <td>{procedure.Description}</td>
                                         <td>{procedure.Status}</td>
+                                        <td>{procedure.DateOfProcedure}</td>
                                         <td>{procedure.PlannedStartTime}</td>
                                         <td>{procedure.EstimatedEndTime}</td>
                                         <td

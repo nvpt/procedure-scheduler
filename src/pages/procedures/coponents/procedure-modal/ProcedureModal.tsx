@@ -43,6 +43,7 @@ export default class ProcedureModal extends React.Component<
             Patient: '',
             Description: '',
             Status: 'Planned',
+            DateOfProcedure: '',
             PlannedStartTime: '',
             EstimatedEndTime: '',
         } as ProcedureInterface,
@@ -73,6 +74,7 @@ export default class ProcedureModal extends React.Component<
             Patient: '',
             Description: '',
             Status: 'Planned',
+            DateOfProcedure: '',
             PlannedStartTime: '',
         }
 
@@ -234,31 +236,67 @@ export default class ProcedureModal extends React.Component<
                             </Form.Group>
 
                             <Form.Group controlId='PlannedStartTime'>
-                                <Form.Label column={false}> Planned Start Time*</Form.Label>
+                                <Form.Label column={false}>Date*</Form.Label>
                                 <Form.Control
                                     type='text'
                                     required
-                                    onFocus={(event:any)=>{event.target.type='date'}}
-                                    onBlur={(event:any):void=>{
-                                        if(!event.target.value) event.target.type='text'}}
-                                    placeholder='Enter the Day of Birth'
-                                    value={this.state.formData.PlannedStartTime ? this.state.formData.PlannedStartTime : ''}
+                                    onFocus={(event: any) => {
+                                        event.target.type = 'date'
+                                    }}
+                                    onBlur={(event: any): void => {
+                                        if (!event.target.value)
+                                            event.target.type = 'text'
+                                    }}
+                                    placeholder='Date of Procedure'
+                                    value={
+                                        this.state.formData.PlannedStartTime
+                                            ? this.state.formData
+                                                  .PlannedStartTime
+                                            : ''
+                                    }
                                     onChange={(event: any) => {
-                                        this.handleChangeOption(event, 'PlannedStartTime')
+                                        this.handleChangeOption(
+                                            event,
+                                            'PlannedStartTime',
+                                        )
                                     }}
                                 />
-                                <Form.Control.Feedback
-                                    type={'invalid'}>
+                                <Form.Control.Feedback type={'invalid'}>
                                     Field is required
                                 </Form.Control.Feedback>
                             </Form.Group>
-
+                            <Form.Group controlId='formName'>
+                                <Form.Label column={false}>
+                                    Planned Start Time*
+                                </Form.Label>
+                                <Form.Control
+                                    type={'time'}
+                                    name={'time'}
+                                    min='09:00'
+                                    max='18:00'
+                                    placeholder='e.g. 30m or 1h 20m'
+                                    required
+                                    value={this.state.formData.PlannedStartTime}
+                                    onChange={(event: any) => {
+                                        this.handleChangeOption(
+                                            event,
+                                            'PlannedStartTime',
+                                        )
+                                    }}
+                                />
+                                <Form.Control.Feedback type={'invalid'}>
+                                    Field is required
+                                </Form.Control.Feedback>
+                            </Form.Group>
                             <Form.Group controlId='formName'>
                                 <Form.Label column={false}>
                                     Estimated End Time
                                 </Form.Label>
-                                <Form.Control as='time'
-                                    type='text'
+                                <Form.Control
+                                    type={'time'}
+                                    name={'time'}
+                                    min='09:00'
+                                    max='18:00'
                                     placeholder='e.g. 30m or 1h 20m'
                                     required
                                     value={this.state.formData.EstimatedEndTime}
@@ -270,7 +308,6 @@ export default class ProcedureModal extends React.Component<
                                     }}
                                 />
                             </Form.Group>
-
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant='secondary' onClick={handleClose}>
