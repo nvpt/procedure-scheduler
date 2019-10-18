@@ -58,6 +58,7 @@
 .content {
   display: block;
   width: 100%;
+  min-width: 600px;
   height: 100%;
   padding: 22px;
 }

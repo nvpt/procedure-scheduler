@@ -15,6 +15,7 @@ import { SideMenu } from './shared/side-menu/SideMenu'
 import PatientInterface from './interfaces/PatientInterface'
 import { MENU } from './Constants'
 import { PatientsList } from './mock/PatientsMock'
+import Dashboard from './pages/dashboard/Dashboard'
 
 interface PropsApp {
     onGetPatients?: (patients: PatientInterface[]) => void
@@ -68,7 +69,11 @@ class App extends React.Component<PropsApp, StateApp> {
                         <Header />
                         <div className={cn.container}>
                             <div className={cn.content}>
-                                <Redirect from='/' to={MENU.DOCTORS.LINK} />
+                                <Route
+                                    exact
+                                    path={MENU.HOME.LINK}
+                                    component={Dashboard}
+                                />
                                 <Route
                                     exact
                                     path={MENU.DOCTORS.LINK}

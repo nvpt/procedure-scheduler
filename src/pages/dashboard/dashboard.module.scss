@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+.dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.tiles {
+    display: flex;
+}
+
+
+.tile {
+    padding: 30px;
+    background: $action-bg-color;
+    border-radius: 10px;
+    margin: 10px;
+    color: $components-bg-color;
+}

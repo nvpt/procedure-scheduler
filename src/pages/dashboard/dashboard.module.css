@@ -1,0 +1,23 @@
+/*bg*/
+/*components*/
+/*font*/
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.tiles {
+  display: flex;
+}
+
+.tile {
+  padding: 30px;
+  background: #b7d6ee;
+  border-radius: 10px;
+  margin: 10px;
+  color: #1b4782;
+}
+
+/*# sourceMappingURL=dashboard.module.css.map */

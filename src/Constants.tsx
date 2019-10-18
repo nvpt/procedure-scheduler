@@ -1,10 +1,10 @@
 import MenuItemInterface from './interfaces/MenuItemInterface'
 
 export const MENU: { [key: string]: MenuItemInterface } = {
-    // HOME: {
-    //     LINK: '/',
-    //     LABEL: 'Home',
-    // },
+    HOME: {
+        LINK: '/',
+        LABEL: 'Home',
+    },
     DOCTORS: {
         LINK: '/doctors',
         LABEL: 'Doctors',
