@@ -233,31 +233,31 @@ export default class ProcedureModal extends React.Component<
                                 </DropdownButton>
                             </Form.Group>
 
-                            <Form.Group controlId='formDayOfBirth'>
-                                <Form.Label column={false}>
-                                    Planned Start Time
-                                </Form.Label>
+                            <Form.Group controlId='PlannedStartTime'>
+                                <Form.Label column={false}> Planned Start Time*</Form.Label>
                                 <Form.Control
-                                    type='date'
-                                    name='Planned Start Time'
-                                    placeholder='Planned Start Time'
-                                    value={this.state.formData.PlannedStartTime}
+                                    type='text'
+                                    required
+                                    onFocus={(event:any)=>{event.target.type='date'}}
+                                    onBlur={(event:any):void=>{
+                                        if(!event.target.value) event.target.type='text'}}
+                                    placeholder='Enter the Day of Birth'
+                                    value={this.state.formData.PlannedStartTime ? this.state.formData.PlannedStartTime : ''}
                                     onChange={(event: any) => {
-                                        this.handleChangeOption(
-                                            event,
-                                            'PlannedStartTime',
-                                        )
+                                        this.handleChangeOption(event, 'PlannedStartTime')
                                     }}
                                 />
-                                <Form.Text className='text-muted'>
+                                <Form.Control.Feedback
+                                    type={'invalid'}>
                                     Field is required
-                                </Form.Text>
+                                </Form.Control.Feedback>
                             </Form.Group>
+
                             <Form.Group controlId='formName'>
                                 <Form.Label column={false}>
                                     Estimated End Time
                                 </Form.Label>
-                                <Form.Control
+                                <Form.Control as='time'
                                     type='text'
                                     placeholder='e.g. 30m or 1h 20m'
                                     required
@@ -270,7 +270,7 @@ export default class ProcedureModal extends React.Component<
                                     }}
                                 />
                             </Form.Group>
-                            <Form.Control as='time'></Form.Control>
+
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant='secondary' onClick={handleClose}>
