@@ -119,7 +119,7 @@ export default class PatientModal extends React.Component<
                     </Modal.Header>
                     <Modal.Body>
                         <Form.Group controlId='formName'>
-                            <Form.Label column={false}>Name</Form.Label>
+                            <Form.Label column={false}>Name*</Form.Label>
                             <Form.Control
                                 type='text'
                                 required
@@ -135,7 +135,7 @@ export default class PatientModal extends React.Component<
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId='formDayOfBirth'>
-                            <Form.Label column={false}>Day of Birth</Form.Label>
+                            <Form.Label column={false}>Day of Birth*</Form.Label>
                             <Form.Control
                                 type='text'
                                 required
@@ -154,7 +154,7 @@ export default class PatientModal extends React.Component<
                             </Form.Control.Feedback>
                         </Form.Group>
                         <Form.Group controlId='formSex'>
-                            <Form.Label column={false}>Sex</Form.Label>
+                            <Form.Label column={false}>Sex*</Form.Label>
                             <Form.Check
                                 type='radio'
                                 id='Male'
@@ -188,6 +188,7 @@ export default class PatientModal extends React.Component<
                                     this.handleChangeOption(event, 'Sex')
                                 }}
                             />
+                            <Form.Text className={['text-muted', cn.required].join(' ')}>* - required fields</Form.Text>
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>

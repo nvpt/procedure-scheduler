@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"patient-modal.module.css"}
+{"version":3,"sourceRoot":"","sources":["patient-modal.module.scss"],"names":[],"mappings":"AAAA;EACI;EACA","file":"patient-modal.module.css"}
