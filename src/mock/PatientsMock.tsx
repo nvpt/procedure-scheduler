@@ -14,7 +14,7 @@ export const PatientsList: PatientInterface[] = [
         DayOfBirth: "1975-09-20"
     },
     {
-        Id: 2,
+        Id: 3,
         Name: "Daniel Natan",
         Sex: "Male",
         DayOfBirth: "1980-03-17"
