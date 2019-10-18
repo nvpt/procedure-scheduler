@@ -151,32 +151,27 @@ export default class ProcedureModal extends React.Component<
                                 <Form.Label column={false}>Patient</Form.Label>
                                 <Form.Control
                                     as='select'
-                                    type={'text'}
+                                    required
                                     isInvalid={validated && !formData.Patient}
-                                    onChange={(event:any) => {
+                                    onChange={(event: any) => {
                                         this.handleChangePatient(
                                             event.target.value,
                                         )
-                                    }}
-                                    defaultValue="rrr"
-                                    required>
+                                    }}>
                                     <option> </option>
                                     {this.props.patients.map(
                                         (patient: PatientInterface, i) => {
                                             return (
-                                                <option
-                                                    key={i}>
+                                                <option key={i}>
                                                     {patient.Name}
                                                 </option>
                                             )
                                         },
                                     )}
                                 </Form.Control>
-                                {!formData.Patient && validated ? (
-                                    <Form.Control.Feedback type={'invalid'}>
-                                        Field is required
-                                    </Form.Control.Feedback>
-                                ) : null}
+                                <Form.Control.Feedback type={'invalid'}>
+                                    Field is required
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId='Description'>
                                 <Form.Label column={false}>
@@ -184,6 +179,10 @@ export default class ProcedureModal extends React.Component<
                                 </Form.Label>
                                 <Form.Control
                                     as='textarea'
+                                    required
+                                    isInvalid={
+                                        validated && !formData.Description
+                                    }
                                     rows='3'
                                     value={
                                         this.state.formData.Description
@@ -198,9 +197,9 @@ export default class ProcedureModal extends React.Component<
                                         )
                                     }}
                                 />
-                                <Form.Text className='text-muted'>
+                                <Form.Control.Feedback type={'invalid'}>
                                     Field is required
-                                </Form.Text>
+                                </Form.Control.Feedback>
                             </Form.Group>
                             <Form.Group controlId='patient'>
                                 <Form.Label column={false}>Status</Form.Label>
