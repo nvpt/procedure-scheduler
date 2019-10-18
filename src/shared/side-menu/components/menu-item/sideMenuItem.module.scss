@@ -22,10 +22,14 @@
 }
 
 .linkActive {
-    color: $content-light-color;
+    color: $content-color;
     background: $action-bg-color;
     border: 1px solid $content-light-color;
     border-radius: 4px;
     box-shadow: 1px 1px 18px 0 rgba($additional-dark-bg-color, 0.3);
     cursor: pointer;
+
+    &:hover {
+        color: $content-color;
+    }
 }

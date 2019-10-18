@@ -22,12 +22,15 @@
 }
 
 .linkActive {
-  color: #fbffff;
+  color: #0e376f;
   background: #b7d6ee;
   border: 1px solid #fbffff;
   border-radius: 4px;
   box-shadow: 1px 1px 18px 0 rgba(16, 7, 116, 0.3);
   cursor: pointer;
+}
+.linkActive:hover {
+  color: #0e376f;
 }
 
 /*# sourceMappingURL=sideMenuItem.module.css.map */
