@@ -10,7 +10,7 @@ type optionName = 'Name' | 'Sex' | 'DayOfBirth' // according to PatientInterface
 interface PropsAddPatients {
     show: boolean
     patientData: PatientInterface
-    saveAndHide: (status: boolean, patientData: any) => void
+    saveAndHide: (status: boolean, patientData: PatientInterface) => void
     closeModal: () => void
 }
 

@@ -1,10 +1,8 @@
 import React from 'react';
 import cn from './Breadcrumbs.module.css';
-// import { Link } from 'react-router-dom';
 import { MENU } from '../../Constants';
 
 export default class Breadcrumbs extends React.Component {
-
     render() {
         return (
             <div>

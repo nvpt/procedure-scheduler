@@ -4,10 +4,6 @@
     @extend .table-padding;
 }
 
-.tr {
-    cursor: pointer;
-}
-
 .delete {
     @extend .delete-cell;
 }

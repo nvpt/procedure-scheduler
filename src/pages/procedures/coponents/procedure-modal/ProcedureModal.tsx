@@ -23,7 +23,7 @@ interface AddProceduresProps {
     show: boolean
     procedureData: ProcedureInterface
     patients: PatientInterface[]
-    saveAndHide: (status: boolean, procedureData: any) => void
+    saveAndHide: (status: boolean, procedureData: ProcedureInterface) => void
     closeModal: () => void
 }
 interface AddProceduresState {

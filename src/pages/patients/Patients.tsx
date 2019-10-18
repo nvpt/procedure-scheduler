@@ -36,7 +36,7 @@ class Patients extends React.Component<PropsPatients, StatePatients> {
         status: boolean = false,
         currentPatientData: PatientInterface = {} as PatientInterface,
     ) {
-        if (this._patientIsExist(currentPatientData)) {
+        if (this.patientIsExist(currentPatientData)) {
             this.props.onUpdatePatient([currentPatientData])
         } else {
             this.props.onAddPatient([currentPatientData])
@@ -80,6 +80,12 @@ class Patients extends React.Component<PropsPatients, StatePatients> {
         this.props.onDeletePatient([patient])
     }
 
+    patientIsExist(patient: PatientInterface) {
+        return this.props.patients.some(
+            (person: PatientInterface) => person.Id === patient.Id,
+        )
+    }
+
     render() {
         const { emptyPlaceholder, showModal, currentPatientData } = this.state
         const { patients } = this.props
@@ -110,6 +116,7 @@ class Patients extends React.Component<PropsPatients, StatePatients> {
                                 return (
                                     <tr
                                         key={i}
+                                        style={{ cursor: 'pointer' }}
                                         onClick={() => {
                                             this.handleShowModal(true, patient)
                                         }}>
@@ -156,12 +163,6 @@ class Patients extends React.Component<PropsPatients, StatePatients> {
                     />
                 ) : null}
             </div>
-        )
-    }
-
-    _patientIsExist(patient: PatientInterface) {
-        return this.props.patients.some(
-            (person: PatientInterface) => person.Id === patient.Id,
         )
     }
 }

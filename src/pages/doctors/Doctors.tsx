@@ -23,17 +23,17 @@ export default class Doctors extends React.Component<
     render() {
         const { doctors, emptyPlaceholder } = this.state
 
-        if (doctors && doctors.length) {
-            return (
-                <div className={cn.doctors}>
-                    <TopPanel title={'Doctors'}/>
-                    <Table striped bordered>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                            </tr>
-                        </thead>
+        return (
+            <div className={cn.doctors}>
+                <TopPanel title={'Doctors'} />
+                <Table striped bordered>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    {doctors && doctors.length ? (
                         <tbody>
                             {doctors.map((doctor) => {
                                 return (
@@ -44,11 +44,15 @@ export default class Doctors extends React.Component<
                                 )
                             })}
                         </tbody>
-                    </Table>
-                </div>
-            )
-        } else {
-            return <div className={cn.doctors}>{emptyPlaceholder}</div>
-        }
+                    ) : (
+                        <tbody>
+                            <tr>
+                                <td colSpan={2}>{emptyPlaceholder}</td>
+                            </tr>
+                        </tbody>
+                    )}
+                </Table>
+            </div>
+        )
     }
 }

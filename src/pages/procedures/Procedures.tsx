@@ -43,7 +43,7 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
         status: boolean = false,
         currentProcedureData: ProcedureInterface = {} as ProcedureInterface,
     ) {
-        if (this._procedureIsExist(currentProcedureData)) {
+        if (this.procedureIsExist(currentProcedureData)) {
             this.props.onUpdateProcedure([currentProcedureData])
         } else {
             this.props.onAddProcedure([currentProcedureData])
@@ -88,8 +88,15 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
     }
 
     getProcedures() {
-        //todo: *** here should be request
+        //place of request
         this.props.onGetProcedures(ProceduresList)
+    }
+
+    procedureIsExist(checkedProcedure: ProcedureInterface) {
+        return this.props.procedures.some(
+            (procedure: ProcedureInterface) =>
+                procedure.Id === checkedProcedure.Id,
+        )
     }
 
     render() {
@@ -172,12 +179,6 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
                     />
                 ) : null}
             </div>
-        )
-    }
-    _procedureIsExist(checkedProcedure: ProcedureInterface) {
-        return this.props.procedures.some(
-            (procedure: ProcedureInterface) =>
-                procedure.Id === checkedProcedure.Id,
         )
     }
 }
