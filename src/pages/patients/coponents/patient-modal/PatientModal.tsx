@@ -36,10 +36,6 @@ export default class PatientModal extends React.Component<
     }
 
     handleChangeOption(event: any, optionName: optionName) {
-        console.log(
-            'PatientModal.tsx__handleChangeOption >>> event: ',
-            event.target,
-        )
         const formData = { ...this.state.formData }
         formData[optionName] = event.target.value
         this.setState({ formData })
