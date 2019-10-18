@@ -136,14 +136,13 @@ class Procedures extends React.Component<ProceduresProps, ProceduresState> {
                                             this.handleShowModal(true, procedure)
                                         }}>
                                         <td>{procedure.Id}</td>
-                                        <td>{procedure.Patient}</td>
+                                        <td>{procedure.Patient ? procedure.Patient.Name : ''}</td>
                                         <td>{procedure.Description}</td>
                                         <td>{procedure.Status}</td>
                                         <td>{procedure.DateOfProcedure}</td>
                                         <td>{procedure.PlannedStartTime}</td>
                                         <td>{procedure.EstimatedEndTime}</td>
-                                        <td
-                                            className={cn.delete}
+                                        <td className={cn.delete}
                                             onClick={(event) => {
                                                 this.handleDeleteProcedure(
                                                     event,

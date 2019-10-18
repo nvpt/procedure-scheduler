@@ -28,6 +28,7 @@ interface AddProceduresProps {
     saveAndHide: (status: boolean, procedureData: ProcedureInterface) => void
     closeModal: () => void
 }
+
 interface AddProceduresState {
     modalTitle: string
     formData: ProcedureInterface
@@ -42,7 +43,7 @@ export default class ProcedureModal extends React.Component<
         modalTitle: 'Add Procedure',
         formData: {
             Id: 0,
-            Patient: '',
+            Patient: {} as PatientInterface,
             Description: '',
             Status: 'Planned',
             DateOfProcedure: '',
@@ -58,10 +59,12 @@ export default class ProcedureModal extends React.Component<
         this.setState({ formData })
     }
 
-    handleChangePatient(patientName: string) {
+    handleChangePatient(patient: PatientInterface) {
         const formData = { ...this.state.formData }
-        formData.Patient = patientName
-        this.setState({ formData })
+        formData.Patient = patient
+        this.setState({
+            formData: Object.assign(this.state.formData, formData),
+        })
     }
 
     handleChangeStatus(status: statusType) {
@@ -73,7 +76,7 @@ export default class ProcedureModal extends React.Component<
     resetForm() {
         const resetForm: ProcedureInterface = {
             Id: 0,
-            Patient: '',
+            Patient: {} as PatientInterface,
             Description: '',
             Status: 'Planned',
             DateOfProcedure: '',
@@ -106,7 +109,6 @@ export default class ProcedureModal extends React.Component<
     render() {
         const { modalTitle, validated, formData } = this.state
         const { show, saveAndHide, closeModal, patients } = this.props
-
         const handleSave = () => {
             // const formData = this.state.formData
             formData.Id =
@@ -116,7 +118,6 @@ export default class ProcedureModal extends React.Component<
             saveAndHide(false, { ...this.state.formData })
             this.resetForm()
         }
-
         const handleClose = () => {
             closeModal()
             this.resetForm()
@@ -164,16 +165,16 @@ export default class ProcedureModal extends React.Component<
                                         )
                                     }}>
                                     <option>
-                                        {formData.Patient
-                                            ? formData.Patient
+                                        {formData.Patient && formData.Patient.Id
+                                            ? formData.Patient.Name
                                             : ''}
                                     </option>
-                                    {formData.Patient
+                                    {formData.Patient && formData.Patient.Id
                                         ? patients
                                               .filter(
                                                   (patient) =>
-                                                      patient.Name !==
-                                                      formData.Patient,
+                                                      patient.Id !==
+                                                      formData.Patient.Id,
                                               )
                                               .map(
                                                   (
