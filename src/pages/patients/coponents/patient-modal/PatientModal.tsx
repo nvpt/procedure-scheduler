@@ -92,13 +92,7 @@ export default class PatientModal extends React.Component<
         const handleSubmit = (event: any) => {
             this.setState({validated: true})
             const form = event.currentTarget
-            console.log('PatientModal.tsx__handleSubmit >>> form: ', form);
-            
             const isValid = form.checkValidity();
-
-            
-            console.log('PatientModal.tsx__handleSubmit >>> isValid: ', isValid);
-            
             if(isValid){
                 handleSave()
             } else {
