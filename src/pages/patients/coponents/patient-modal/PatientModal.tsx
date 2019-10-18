@@ -18,7 +18,6 @@ interface StateAddPatients {
     modalTitle: string
     formData: PatientInterface
     validated: boolean
-    valid: boolean
 }
 
 export default class PatientModal extends React.Component<
@@ -33,8 +32,7 @@ export default class PatientModal extends React.Component<
             Sex: null,
             DayOfBirth: '',
         } as PatientInterface,
-        validated: false,
-        valid: true,
+        validated: false
     }
 
     handleChangeOption(event: any, optionName: optionName) {
@@ -44,7 +42,7 @@ export default class PatientModal extends React.Component<
         )
         const formData = { ...this.state.formData }
         formData[optionName] = event.target.value
-        this.setState({ formData, valid: true })
+        this.setState({ formData })
     }
 
     resetForm() {
@@ -73,7 +71,7 @@ export default class PatientModal extends React.Component<
     }
 
     render() {
-        const { modalTitle, validated, valid } = this.state
+        const { modalTitle, validated } = this.state
         const { show, saveAndHide, closeModal } = this.props
 
         const handleSave = () => {
@@ -94,15 +92,16 @@ export default class PatientModal extends React.Component<
         const handleSubmit = (event: any) => {
             this.setState({validated: true})
             const form = event.currentTarget
+            console.log('PatientModal.tsx__handleSubmit >>> form: ', form);
+            
             const isValid = form.checkValidity();
 
+            
             console.log('PatientModal.tsx__handleSubmit >>> isValid: ', isValid);
             
             if(isValid){
-                this.setState({valid: true})
                 handleSave()
             } else {
-                this.setState({valid: false})
                 event.preventDefault()
                 event.stopPropagation();
             }
@@ -163,7 +162,7 @@ export default class PatientModal extends React.Component<
                                     'Male'
                                 }
                                 value={'Male'}
-                                isInvalid={!valid}
+                                isInvalid={validated && !this.state.formData.Sex}
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'Sex')
                                 }}
@@ -179,7 +178,7 @@ export default class PatientModal extends React.Component<
                                     'Female'
                                 }
                                 value={'Female'}
-                                isInvalid={!valid}
+                                isInvalid={validated && !this.state.formData.Sex}
                                 feedback="Field is required"
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'Sex')
