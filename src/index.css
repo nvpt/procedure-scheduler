@@ -1,5 +1,6 @@
 /*bg*/
 /*components*/
+/*font*/
 /*global styles*/
 .table-padding {
   padding-top: 30px;
@@ -11,7 +12,6 @@
   font-weight: 500;
   cursor: pointer;
 }
-
 .delete-cell:hover {
   color: #fbffff;
   background: #1b4782;
@@ -22,6 +22,9 @@ th {
   vertical-align: top !important;
 }
 
+/*bg*/
+/*components*/
+/*font*/
 body {
   position: absolute;
   width: 100%;
@@ -31,6 +34,10 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::placeholder {
+  font-size: 14px;
 }
 
 * {
