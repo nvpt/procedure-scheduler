@@ -59,9 +59,11 @@ export default class ProcedureModal extends React.Component<
         this.setState({ formData })
     }
 
-    handleChangePatient(patient: PatientInterface) {
+    handleChangePatient(patientId: string) {
         const formData = { ...this.state.formData }
-        formData.Patient = patient
+        formData.Patient = this.props.patients.find(
+            (patient) => patient.Id === Number(patientId),
+        ) as PatientInterface
         this.setState({
             formData: Object.assign(this.state.formData, formData),
         })
@@ -74,14 +76,7 @@ export default class ProcedureModal extends React.Component<
     }
 
     resetForm() {
-        const resetForm: ProcedureInterface = {
-            Id: 0,
-            Patient: {} as PatientInterface,
-            Description: '',
-            Status: 'Planned',
-            DateOfProcedure: '',
-            PlannedStartTime: '',
-        }
+        const resetForm: ProcedureInterface = {} as ProcedureInterface
 
         this.setState({
             formData: resetForm,
@@ -115,7 +110,7 @@ export default class ProcedureModal extends React.Component<
                 formData.Id && formData.Id !== 0
                     ? formData.Id
                     : Number(Date.now())
-            saveAndHide(false, { ...this.state.formData })
+            saveAndHide(false, { ...formData })
             this.resetForm()
         }
         const handleClose = () => {
@@ -124,11 +119,6 @@ export default class ProcedureModal extends React.Component<
         }
 
         const handleSubmit = (event: any) => {
-            console.log(
-                'ProcedureModal.tsx__handleSubmit >>> formData: ',
-                formData,
-            )
-
             this.setState({ validated: true })
             const form = event.currentTarget
             const isValid = form.checkValidity()
@@ -179,23 +169,25 @@ export default class ProcedureModal extends React.Component<
                                               .map(
                                                   (
                                                       patient: PatientInterface,
-                                                      i,
                                                   ) => {
                                                       return (
-                                                          <option key={i}>
-                                                              {patient.Name}
+                                                          <option
+                                                              key={patient.Id}
+                                                              label={
+                                                                  patient.Name
+                                                              }>
+                                                              {patient.Id}
                                                           </option>
                                                       )
                                                   },
                                               )
                                         : patients.map(
-                                              (
-                                                  patient: PatientInterface,
-                                                  i,
-                                              ) => {
+                                              (patient: PatientInterface) => {
                                                   return (
-                                                      <option key={i}>
-                                                          {patient.Name}
+                                                      <option
+                                                          key={patient.Id}
+                                                          label={patient.Name}>
+                                                          {patient.Id}
                                                       </option>
                                                   )
                                               },
@@ -362,7 +354,7 @@ export default class ProcedureModal extends React.Component<
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant='secondary' onClick={handleClose}>
-                                Close
+                                Cancel
                             </Button>
                             <Button variant='primary' type={'submit'}>
                                 Save Changes
