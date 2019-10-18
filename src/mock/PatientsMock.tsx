@@ -13,4 +13,10 @@ export const PatientsList: PatientInterface[] = [
         Sex: "Female",
         DayOfBirth: "1975-09-20"
     },
+    {
+        Id: 2,
+        Name: "Daniel Natan",
+        Sex: "Male",
+        DayOfBirth: "1980-03-17"
+    },
 ];

@@ -32,7 +32,7 @@ export default class PatientModal extends React.Component<
             Sex: null,
             DayOfBirth: '',
         } as PatientInterface,
-        validated: false
+        validated: false,
     }
 
     handleChangeOption(event: any, optionName: optionName) {
@@ -90,14 +90,14 @@ export default class PatientModal extends React.Component<
         }
 
         const handleSubmit = (event: any) => {
-            this.setState({validated: true})
+            this.setState({ validated: true })
             const form = event.currentTarget
-            const isValid = form.checkValidity();
-            if(isValid){
+            const isValid = form.checkValidity()
+            if (isValid) {
                 handleSave()
             } else {
                 event.preventDefault()
-                event.stopPropagation();
+                event.stopPropagation()
             }
         }
 
@@ -124,29 +124,37 @@ export default class PatientModal extends React.Component<
                                     this.handleChangeOption(event, 'Name')
                                 }}
                             />
-                            <Form.Control.Feedback
-                                type={'invalid'}>
+                            <Form.Control.Feedback type={'invalid'}>
                                 Field is required
                             </Form.Control.Feedback>
                         </Form.Group>
                         {/*END: NAME*/}
                         {/*DAY OF BIRTH*/}
                         <Form.Group controlId='FormDayOfBirth'>
-                            <Form.Label column={false}>Day of Birth*</Form.Label>
+                            <Form.Label column={false}>
+                                Day of Birth*
+                            </Form.Label>
                             <Form.Control
                                 type='text'
                                 required
-                                onFocus={(event:any)=>{event.target.type='date'}}
-                                onBlur={(event:any):void=>{
-                                    if(!event.target.value) event.target.type='text'}}
+                                onFocus={(event: any) => {
+                                    event.target.type = 'date'
+                                }}
+                                onBlur={(event: any): void => {
+                                    if (!event.target.value)
+                                        event.target.type = 'text'
+                                }}
                                 placeholder='Enter the Day of Birth'
-                                value={this.state.formData.DayOfBirth ? this.state.formData.DayOfBirth : ''}
+                                value={
+                                    this.state.formData.DayOfBirth
+                                        ? this.state.formData.DayOfBirth
+                                        : ''
+                                }
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'DayOfBirth')
                                 }}
                             />
-                            <Form.Control.Feedback
-                                type={'invalid'}>
+                            <Form.Control.Feedback type={'invalid'}>
                                 Field is required
                             </Form.Control.Feedback>
                         </Form.Group>
@@ -165,7 +173,9 @@ export default class PatientModal extends React.Component<
                                     'Male'
                                 }
                                 value={'Male'}
-                                isInvalid={validated && !this.state.formData.Sex}
+                                isInvalid={
+                                    validated && !this.state.formData.Sex
+                                }
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'Sex')
                                 }}
@@ -181,13 +191,21 @@ export default class PatientModal extends React.Component<
                                     'Female'
                                 }
                                 value={'Female'}
-                                isInvalid={validated && !this.state.formData.Sex}
-                                feedback="Field is required"
+                                isInvalid={
+                                    validated && !this.state.formData.Sex
+                                }
+                                feedback='Field is required'
                                 onChange={(event: any) => {
                                     this.handleChangeOption(event, 'Sex')
                                 }}
                             />
-                            <Form.Text className={['text-muted', cn.required].join(' ')}>* - required fields</Form.Text>
+                            <Form.Text
+                                className={[
+                                    'text-muted',
+                                    cn.requiredNotation,
+                                ].join(' ')}>
+                                * - required fields
+                            </Form.Text>
                         </Form.Group>
                         {/*END: SEX*/}
                     </Modal.Body>

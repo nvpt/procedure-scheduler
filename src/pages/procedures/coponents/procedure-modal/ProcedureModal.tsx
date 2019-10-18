@@ -270,7 +270,10 @@ export default class ProcedureModal extends React.Component<
                             {/*END: STATUS*/}
                             {/*DATE*/}
                             <Form.Group controlId='DateOfProcedure'>
-                                <Form.Label column={false}>Date*</Form.Label>
+                                <Form.Label column={false}>
+                                    Date
+                                    {formData.Status !== 'Finished' ? '*' : ''}
+                                </Form.Label>
                                 <Form.Control
                                     type='text'
                                     required={formData.Status !== 'Finished'}
@@ -304,7 +307,8 @@ export default class ProcedureModal extends React.Component<
                             {/*START TIME*/}
                             <Form.Group controlId='StartTimeOfProcedure'>
                                 <Form.Label column={false}>
-                                    Planned Start Time*
+                                    Planned Start Time
+                                    {formData.Status !== 'Finished' ? '*' : ''}
                                 </Form.Label>
                                 <Form.Control
                                     type={'time'}
@@ -347,7 +351,13 @@ export default class ProcedureModal extends React.Component<
                                 />
                             </Form.Group>
                             {/*END: END TIME*/}
-                            <Form.Text className={['text-muted', cn.required].join(' ')}>* - required fields</Form.Text>
+                            <Form.Text
+                                className={[
+                                    'text-muted',
+                                    cn.requiredNotation,
+                                ].join(' ')}>
+                                * - required fields
+                            </Form.Text>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button variant='secondary' onClick={handleClose}>
