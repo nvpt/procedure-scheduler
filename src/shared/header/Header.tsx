@@ -9,7 +9,7 @@ export const Header: React.FC<propsHeader> = () => {
             <div className={cn.logoWrap}>
                 <img src={logo} alt='' width={'30'} height={'30'} />
             </div>
-            <div>Procedure Scheduler</div>
+            <div className={cn.title}>Procedure Scheduler</div>
         </div>
     )
 }
