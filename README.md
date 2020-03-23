@@ -1,4 +1,4 @@
-#### [Task](/home/eugene/WebstormProjects/work/procedure-scheduler/Task_description.txt)  Procedure Scheduler
+#### Procedure Scheduler SPA (on mocks)
 
 Implemented frontend part on mock data, without backend.
 
